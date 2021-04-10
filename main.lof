@@ -1,0 +1,19 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\babel@toc {spanish}{}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Distribución de la palabra oculista. En rojo se muestran los términos concurrentes únicamente con la palabra médico, de verde los términos concurrentes exclusivamente con la palabra abogado y en azul los términos concurrentes con ambas palabras. Gráfico de elaboración propia.\relax }}{7}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Diagrama de una cadena de longitud $L+1$. Donde se muestra que la palabra $w_{L+1}$ depende de todas las palabras anteriores. Gráfico de elaboración propia. \relax }}{8}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Diagrama de una cadena de longitud $L+1$. Donde se muestra que la palabra $w_{L+1}$ depende solo de un número limitado de palabras (en verde). Gráfico de elaboración propia. \relax }}{8}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Modelos propuestos por Mikolov para representación y procesamiento de palabras.\relax }}{9}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Representación del embebido de palabras bajo $\mathbf {P}$ de dimensión dos. Gráfico de elaboración propia.\relax }}{11}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Diagrama de Modelo Oculto de Markov, en verde se muestra la cadena de Markov oculta y en azul las señales observables.\relax }}{21}{figure.caption.26}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Arquitectura propuesta para el modelo de red neuronal que será el núcleo de la silabeo automático.\relax }}{28}{figure.caption.34}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Imagen que muestra algunas de las publicaciones en bruto sobre la palabra ``oxígeno''. Se muestra en imagen porque algunos caracteres no son manejables en \LaTeX .\relax }}{30}{figure.caption.36}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

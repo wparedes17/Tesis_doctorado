@@ -1,0 +1,789 @@
+\chapter{Marco teórico}
+\label{ch:chap2}
+
+
+\section{Modelos del lenguaje}
+\label{sec:sec21}
+
+Antes de hablar sobre modelos de lenguaje resulta necesario mencionar que existen dos enfoques, el enfoque generativo de Chomsky\footnote{El enfoque de Noam Chomsky está plasmado en su trabajo doctoral ``Transfrormational Analysis'' y en el libro derivado ``The logical structure of linguistic theory'' escrito en 1955.} y el enfoque distributivo de Harris\footnote{La base del enfoque de Zellig Harris fue publicado en su trabajo ``Distributional structure'' publicado en 1954.}. Aunque, el enfoque de Harris es la base del PLN actual, es imposible hablar de modelos de lenguaje natural dejando de lado en enfoque generativo de Chomsky.
+
+\subsection{Gramática Generativa de Chomsky}
+\label{subsec:sec211}
+
+
+\subsubsection{¿Por qué no debe usarse un modelo estadístico?}
+\label{subsubsec:sec2111}
+
+Las gramática generativa de Chomsky parte de un análisis sintáctico de la lengua con el objetivo fundamental de encontrar un ``gramática'' que permita discriminar entre oraciones gramáticales y oraciones agramáticales, es decir, separar las oraciones que pertenecen a la lengua de las que no pertenecen. En ese sentido, se puede entender a la grámatica de Chomsky como un modelo, un modelo que permite clasificar oraciones en válidas o no válidas. 
+
+Dada la naturaleza desconocida de la gramática, el punto de partida del modelo de Chomsky radica en cuáles no deben ser las bases del modelo, en particular, el modelo o gramática no puede ser estadístico. \cite{chomsky2004estructuras} justifica lo anterior en tres puntos:
+
+\begin{enumerate}
+	\item Cualquier colección de locuciones solo es una proyección de la gramática. En ese sentido, la gramática no debe partir de una colección de locuciones sino que debe ser capaz de recrear dicha colección.
+	
+	\item En el terreno de la estadística se habla sobre si un modelo es significativo o no. Pero el calificativo de gramatical no es semánticamente equivalente al significado de significativo. El adjetivo tiene significativo tiene que ver con la coherencia de los datos con el modelo, pero la gramáticalidad no, una oración puede ser gramátical y absurda a la vez.
+	
+	\item Es imposible hablar de tener una muestra con un alto orden de aproximación a la lengua, pues el conjunto de locuciones gramaticales que se pueden formar en la lengua es infinito.
+\end{enumerate}
+
+Por lo tanto, el enfoque de Chomsky parte de que no basta con solo recolectar locuciones.\footnote{De acuerdo con \cite{orduna2011estudio}, una locución puede definirse en un sentido estricto y en un sentido amplío. En un sentido estricto, son lexemas con estructura fraseológica y pueden clasificarse en sustantivos, pronombres, adjetivos, determinantes, verbos, adverbios, preposiciones y conjunciones. En otras palabras una locución es una palabra. En un sentido amplío una locución es un elemento oracional, los cuales pueden pueden clasificarse en verbales, adjetivales, adverbiales, preposicionales y conjuntivas. Así frases como ``el comal le dijo a la olla'' son una locución en sentido amplío.} 
+
+\subsubsection{Gramáticas de Contexto Libre}
+\label{subsubsec:sec2112}
+
+La Grámatica de Contexto Libre (GCL) es uno de los tres componentes de la Gramática Generativa de Chomsky (en particular, Chomsky denomina a esta parte como la \textit{Estructura Sintáctica} de su gramática). \cite{cohen1991introduction} define a una GCL como una colección de tres elementos: un alfabeto de terminales denotado por $\Sigma$, un conjunto de símbolos no terminales denotado por $S$ y un conjunto finito de producciones\footnote{Chomsky nombra a las producciones como ``ahormaciones'', aunque otros autores también les llaman derivaciones.} de la forma:
+\begin{displaymath}
+	\mbox{Elemento no terminal} \rightarrow \mbox{Cadena finita de terminales y/o no terminales}
+\end{displaymath}
+Usando esta estructura de producciones es posible generar ciertas oraciones, donde en el caso particular de Chomsky, los elementos no terminales en una primera instancia pueden ser constituyentes y los elementos terminales resultan ser morfemas\footnote{De acuerdo con \cite{allerton1979essentials} los morfemas también son constituyentes, pero son constituyentes finales, lo que resulta en una explicación de porque Chomsky los elige como elementos terminales de su estructura sintáctica. Por simplicidad uno puede pensar en los morfemas como palabras.}. \cite{chomsky2004estructuras} usa el ejemplo la oración ``the woman hit the ball''. Para ello, propone una serie de producciones como las siguientes:
+\begin{align*}
+	S &\rightarrow FN + FV \\
+	FN &\rightarrow DET + N \\
+	FV &\rightarrow VERBO + FN \\
+	DET &\rightarrow \mbox{the}\\
+	N &\rightarrow \mbox{ball}, \mbox{woman}\\
+	VERBO &\rightarrow \mbox{hit}
+\end{align*}
+Sin embargo, es sencillo adecuar esto para el caso del español. Considere las siguientes producciones:
+\begin{align*}
+	S &\rightarrow FN + FV \\
+	FN &\rightarrow DET + N, NP \\
+	FV &\rightarrow VERBO + FN \\
+	DET &\rightarrow \mbox{un}\\
+	N &\rightarrow \mbox{libro}\\
+	NP &\rightarrow\mbox{Sarahí}\\
+	VERBO &\rightarrow \mbox{compró}
+\end{align*}
+
+Usando estas producciones resulta posible generar oraciones como ``Sarahí compró un libro'', ``Un libro compró Sarahí'' y absurdas como ''Un libro compró un libro'' o ``Sarahí compró Sarahí''. Pero la adecuación no resulta compleja entre ambos idiomas. 
+
+Finalmente, algo que es necesario resaltar, es que, en teoría de la computación un lenguaje no es más que un conjunto de palabras y el alfabeto, $\Sigma$, son los caracteres empleados para formar a las palabras. Sin embargo, Chomsky no habla de palabras sino de oraciones, en su caso, el lenguaje es un conjunto de oraciones (las oraciones gramáticales) y el alfabeto de ese lenguaje los morfemas en una primera instancia.
+
+\subsubsection{Transformaciones}
+
+El segundo elemento de la Gramática Generativa de Chomsky son las transformaciones. \cite{chomsky2004estructuras} menciona que las transformaciones son como un puente entre la estructura sintáctica y la estructura morfofonémica, en el sentido que la estructura sintáctica produce oraciones con elementos terminales pero que pueden que no estén en el orden correcto, hagan faltan morfemas o sobren morfemas. En ese sentido, las transformaciones son reglas que permiten permutar subcadenas de la oración, eliminar elementos terminales o agregar elementos terminales.
+
+Para hablar de transformaciones, \cite{chomsky1956three} primeramente define el siguiente concepto:
+
+\begin{defi}
+	Un marcador de frase $K$ de una oración $S$ es un conjunto de cadenas que ocurren resultado de una serie de producciones $P_1,P_2,\ldots,P_n$. Además se dice que el par ordenado $(S,K)$ es analizable en $\left(X_1,X_2\ldots,X_n\right)$ si y solo si, existen cadenas $s_1,s_2\ldots,s_n$ tales que $S = s_1 + s_2 + \cdots s_n$ y para cada $i\leq n$  
+\end{defi}
+
+ define dos tipos de transformaciones: elemental y derivada, la primera obligatoria y la segunda opcional.
+
+
+
+ De acuerdo con \cite{allerton1979essentials} las oraciones obtenidas por la estructura sintáctica son pre-oraciones y al aplicar una transformación elemental se transforman en oraciones, oraciones que se consideran nucleares\footnote{Chomsky las llama oraciones hormacionales pues son resultado de aplicar primordialmente la estructura sintáctica.} y, mientras que una 
+
+\begin{align*}
+	S &\rightarrow FN + FV \\
+	FN &\rightarrow ART + N \\
+	FV &\rightarrow VERBO + FN \\
+	ART &\rightarrow \mbox{el}, \mbox{la}\\
+	N &\rightarrow \mbox{arból}, \mbox{fruta}\\
+	VERBO &\rightarrow AUX + V \\
+	V &\rightarrow \mbox{tiene} \\
+	AUX &\rightarrow T + M \\
+	M &\rightarrow ha, ha + estar-participio, estar-presete
+	T &\rightarrow pasado, presente, continuo
+\end{align*}
+
+
+\subsubsection{Morfofonémica}
+
+El tercer elemento de la Gramática Generativa de Chomsky es la \textit{Estructura Morfofonémica}. \cite{chomsky1956three} explica esto con la siguiente oración ``the man had been taking the book''. Para generar tal oración es necesario el siguiente conjunto de producciones:
+\begin{align*}
+	S &\rightarrow FN + FV \\
+	FN &\rightarrow DET + N \\
+	FV &\rightarrow VERBO + FN \\
+	DET &\rightarrow \mbox{the}\\
+	N &\rightarrow \mbox{man}, \mbox{book}\\
+	VERBO &\rightarrow AUX + V \\
+	V &\rightarrow \mbox{take}\\
+	AUX &\rightarrow C(M)(have en)(be ing)\\
+	M &\rightarrow \mbox{will}, \mbox{can}, \mbox{shall}, \mbox{may}, \mbox{must}\\
+	C &\rightarrow \mbox{past}, \mbox{present}\\
+\end{align*}
+una transformación:
+\begin{align*}
+	AF \ V \rightarrow V \ AF
+\end{align*}
+y un conjunto de reglas morfofonémicas que conviertan morfemas en fonemas, las cuáles para Chomsky conforman la estructura morfofonémica de su gramática generativa.
+\begin{align*}
+	have\ past &\rightarrow had \\
+	be\ en &\rightarrow been \\
+	take\ ing &\rightarrow taking \\
+	will\ past &\rightarrow would\\
+	can\ past &\rightarrow could\\
+	M \ present &\rightarrow M \\
+	take \ past &\rightarrow took\\
+\end{align*}
+De esta forma, siguiendo las producciones es posible llegar a ``the man past have en be ing take the book'', luego al aplicar la transformación se obtiene ``the man past have be en take ing the book'' y finalmente aplicando la estructura morfofonémica se obtiene ``the man had been taking the book''. De esta forma es posible generar un conjunto más grande de oraciones que con solo el uso de la estructura sintáctica. Sin embargo, note que a diferencia de la GCL una adecuación directa al español no es posible.
+
+\subsection{Estructura distributiva de Harris}
+
+\cite{chomsky1997problemas} menciona que la gramática generativa resulta adecuada para los primeros niveles de descripción lingüística: el nivel fonológico y el nivel sintáctico. Sin embargo, no es resulta ser adecuada para un nivel semántico. En ese sentido, el trabajo de Harris, aunque en cierta medida contrapuesto a los objetivos de Chomsky, propone una solución.
+
+Harris separa su trabajo de Chomsky, en el sentido que Chomsky busca un modelo, un dispositivo que permite la adquisición de lenguaje por parte de los seres humanos. En ese sentido las producciones, transformaciones y las reglas morfofonémicas son elementos que conforman ese dispositivo innato en las personas. Por el contrario, \cite{harris1954distributional} menciona que el lenguaje posee una estructura, aunque no está del todo claro que esa estructura esté presente en los hablantes. Además tal estructura puede dar luz sobre el significado, es decir, encontrar patrones que puedan usarse para la descripción lingüística en un nivel semántico.
+
+En contraste con lo propuesto por Chomsky, el trabajo de Harris, no proporciona un modelo como tal, sino una metodología conocida como metodología distributiva \citep{sahlgren2008distributional}. La metodología distributiva se plantea como una forma de explorar lo que hoy se conoce como ``Hipótesis distributiva'', la cual afirma lo siguiente:
+
+\begin{quote}
+	\textit{Se puede establecer la similaridad semántica entre dos palabras si se considera que para tres palabras o morfemas A, B y C. A difiere más en significado de B que de C, si la distribución de A y B difiere más que la distribución de A y C} \citep{harris1954distributional}.
+\end{quote}
+
+Para dar un ejemplo de lo anterior Harris menciona que, de ser cierta la hipótesis, dado que el significado de \textit{oculista} difiere más del significado de \textit{abogado} que del significado de \textit{médico}, entonces sus distribuciones deberían mantener dicha relación\footnote{Harris no menciona una forma de medir la diferencia entre distribuciones.}. En ese sentido, bajo la hipótesis distributiva, debería haber una diferencia más marcada entre la distribución de oculista y abogado que respecto de la distribución de oculista y médico. La Fig.~\ref{fig:example_structure} se muestra la distribución de la palabra oculista y se muestra como existe una concordancia mayor entre términos oculista y médico que entre los términos oculista y abogado. En ese sentido, la figura ilustra hipótesis distributiva.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{img/example_structure}
+	\caption{Distribución de la palabra oculista. En rojo se muestran los términos concurrentes únicamente con la palabra médico, de verde los términos concurrentes exclusivamente con la palabra abogado y en azul los términos concurrentes con ambas palabras. Gráfico de elaboración propia.}
+	\label{fig:example_structure}
+\end{figure}
+
+
+\section{Modelos computacionales con base en la hipótesis distributiva}
+\label{sec:sec22}
+
+\cite{otero1975terminologia} menciona que muchos autores definen la conducta lingüística como ``el uso de la palabras'', aunque desde su perspectiva debería limitarse a ser definida como ``el uso de la palabra'' porque se pueden usar palabras sin transmitir un mensaje. ¿Cómo saber que se tiene el uso de la palabra? Desde la perspectiva del PLN esto conoce como Modelado del Lenguaje (ML) y se centra en dos tareas específicas: dada una secuencia de palabras determinar la palabra siguiente y dada una palabra determinar su estructura.
+
+\subsection{N-gramas}
+Los modelos que emplearon N-gramas fueron un primer intento de representar las palabras y de resolver la tarea del ML. La idea consiste en calcular la probabilidad de ocurrencia de una secuencia de palabras de longitud $L$. De acuerdo con \cite{brants2007large} dada una secuencia de palabras de longitud $L$, $\left(w_{i_{1}},w_{i_{2}},\ldots,w_{i_{L}}\right)$, su probabilidad de ocurrencia puede calcularse como:
+\begin{equation}
+	\label{eq:ngrams}
+	\footnotesize
+	P\left[W_1 =w_{i_{1}},\ldots,W_L =w_{i_{L}}\right] = P\left[W_1=w_{i_{1}}\right] \prod_{j=1}^{L-1}P\left[W_{j+1}=w_{i_{j+1}} |W_1=w_{i_{1}},\ldots,W_j=w_{i_j}\right]
+\end{equation}
+donde $w_j$ denota la i-ésima palabra del vocabulario, $\{i_j\}_{j=1}^L$ es una colección de índice tales que $i_j = 1,2,\cdots,V$ con $V$ el total de palabras que conforman el vocabulario. De esta forma, las palabras se codifican usando un número natural, sin una preferencia de asignación. De esta forma, la mejor predicción para la palabra siguiente, $w_{L+1}$, dada una secuencia de longitud $L$ es aquella tal que:
+\begin{equation}
+	\small
+	\hat{W}_{L+1} = \arg \max_{1 \leq j \leq V }P\left[W_1 = w_{i_{1}},\ldots,W_L = w_{i_{L}}, W_{L+1}=w_j\right] 
+\end{equation}
+Note que (\ref{eq:ngrams}) es un conocido resultado de probabilidad\footnote{Se encuentra como ejercicio en el primer capítulo de Introduction to Probability Models de Sheldon Ross.} y que implica genera una cadena con base en las probabilidades condicionadas, es decir, la probabilidad de que la segunda palabra sea cierta palabra depende de la palabra que le antecede, la probabilidad de que la tercera palabra sea una palabra en particular depende de las dos palabras que le anteceden y, así sucesivamente (Fig.~\ref{fig:ngramfull}). 
+
+\begin{figure}[h]
+	\centering
+		\begin{tikzpicture}[->,>=stealth',auto,semithick,node distance=2cm]
+		\tikzstyle{every state}=[draw=black,thick,text=black,scale=1]
+		\node[state,fill=black!30!green]    (A)               {$w_1$};
+		\node[state,fill=black!30!green]    (B)[right of=A]   {$w_2$};
+		\node		    (C)[right of=B]   {$\cdots$};
+		\node[state,fill=black!30!green]    (D)[right of=C]   {$w_{L-N+1}$};
+		\node		    (E)[right of=D]   {$\cdots$};
+		\node[state,fill=white!40!blue]	(F)[right of=E]	  {$w_{L+1}$};
+		\path
+		(A) edge (B)
+		(B) edge (C)
+		(C) edge (D)
+		(D) edge (E)
+		(E) edge (F);
+	\end{tikzpicture}
+	\caption{Diagrama de una cadena de longitud $L+1$. Donde se muestra que la palabra $w_{L+1}$ depende de todas las palabras anteriores. Gráfico de elaboración propia. }
+	\label{fig:ngramfull}
+\end{figure}
+
+El cómputo (\ref{eq:ngrams}) se vuelve muy costoso desde el punto de vista de la información requerida $L$ es grande. \cite{norvig209natural} afirma que el cómputo completo para $L=5$ necesitaría aproximadamente 30 GB de información y, es claro que una secuencia de solo 5 palabras es muy limitada. En ese sentido, un supuesto razonable planteado por Brants y su equipo es que la probabilidad de la palabra $L+1$ solo depende de las $N$ palabras anteriores a ésta y no de toda las palabras anteriores (Fig.~\ref{fig:ngram}). De esta forma se tiene la siguiente expresión que se considera el modelo de n-gramas:
+\begin{equation}
+	\label{eq:ngramsok}
+	\scriptsize
+	P\left[W_1 = w_{i_{1}},\ldots,W_L = w_{i_{L}}\right] = P\left[W_1=w_{i_{1}}\right] \prod_{j=1}^{L-1}P\left[W_{j+1}=w_{i_{j+1}} |W_{j-N+1}=w_{i_{j-N+1}},\ldots,W_j=w_{i_{j}}\right]
+\end{equation}
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[->,>=stealth',auto,semithick,node distance=2cm]
+		\tikzstyle{every state}=[draw=black,thick,text=black,scale=1]
+		\node[state]    (A)               {$w_1$};
+		\node[state]    (B)[right of=A]   {$w_2$};
+		\node		    (C)[right of=B]   {$\cdots$};
+		\node[state,fill=black!30!green]    (D)[right of=C]   {$w_{L-N+1}$};
+		\node		    (E)[right of=D]   {$\cdots$};
+		\node[state,fill=white!40!blue]	(F)[right of=E]	  {$w_{L+1}$};
+		\path
+		(A) edge (B)
+		(B) edge (C)
+		(C) edge (D)
+		(D) edge (E)
+		(E) edge (F);
+	\end{tikzpicture}
+	\caption{Diagrama de una cadena de longitud $L+1$. Donde se muestra que la palabra $w_{L+1}$ depende solo de un número limitado de palabras (en verde). Gráfico de elaboración propia. }
+	\label{fig:ngram}
+\end{figure}
+
+
+\subsection{Modelos CBOW y Skip-Gram}
+
+Desde el punto de vista de los modelos basados en n-gramas emplean la distribución de las palabras para cuantificar la incertidumbre sobre la siguiente palabra; pero no permite saltar al nivel semántico. Además de que puede ser cuestionable la reducción para hacer computacionalmente el modelo. \cite{mikolov2013efficient,mikolov2013distributed} proponen que para alcanzar el nivel semántico es necesario emplear otros enfoques. En su trabajo el propone dos modelos: el Modelo de Bolsas de Palabras Continuo (CBOW por sus siglas en inglés) y el modelo Skip-Gram. Ambos modelos basados en redes neuronales secuenciales con tres capas: una capa de entrada, una capa de proyección y una capa de salida (Fig.~\ref{fig:mikolovmodels}).
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.45\linewidth}
+		\begin{tikzpicture}[->,>=stealth',auto,semithick,]
+			\tikzstyle{every state}=[draw=black,thick,text=black,scale=1]
+			\node[state]    (w1)               				  {$\mathbf{W}_L$};
+			\node[state]    (w2)[below of=w1, node distance=1.5cm]  				  {$\mathbf{W}_{L-1}$};
+			\node[state]    (w3)[below of=w2,node distance=1.7cm]                 {$\mathbf{W}_{L-2}$};
+			\node		    (wdot)[below of=w3,node distance=1.1cm]               {$\vdots$};
+			\node[state]    (wN)[below of=wdot,node distance=1.5cm]               {$\mathbf{W}_{L-N+1}$};
+			\node[state]    (P)[right of=w3,node distance=2.5cm]   				  {$\mathbf{P}$};
+			\node[state]    (Y)[right of=P,node distance=2.5cm]   				  {$\mathbf{Y}$};
+			\path
+			(w1) edge (P)
+			(w2) edge (P)
+			(w3) edge (P)
+			(wN) edge (P)
+			(P)  edge (Y);
+		\end{tikzpicture}
+		\caption{Diagrama de la arquitectura del modelo CBOW. Gráfico de elaboración propia. }
+		\label{fig:cbow}
+	\end{subfigure}
+	\begin{subfigure}{0.45\linewidth}
+		\begin{tikzpicture}[->,>=stealth',auto,semithick,]
+			\tikzstyle{every state}=[draw=black,thick,text=black,scale=1]
+			\node[state]    (w1)               				  {$\mathbf{W}_L$};
+			\node[state]    (w2)[below of=w1, node distance=1.5cm]  				  {$\mathbf{W}_{L-1}$};
+			\node[state]    (w3)[below of=w2,node distance=1.7cm]                 {$\mathbf{W}_{L-2}$};
+			\node		    (wdot)[below of=w3,node distance=1.1cm]               {$\vdots$};
+			\node[state]    (wN)[below of=wdot,node distance=1.5cm]               {$\mathbf{W}_{L-N+1}$};
+			\node[state]    (P)[left of=w3,node distance=2.5cm]   				  {$\mathbf{P}$};
+			\node[state]    (Y)[left of=P,node distance=2.5cm]   				  {$\mathbf{Y}$};
+			\path
+			(P) edge (wN)
+			(P) edge (w3)
+			(P) edge (w2)
+			(P) edge (w1)
+			(Y)  edge (P);
+		\end{tikzpicture}
+		\caption{Diagrama de la arquitectura del modelo Skip-Gram. }
+		\label{fig:skip-gram}
+	\end{subfigure}
+	\caption{Modelos propuestos por Mikolov para representación y procesamiento de palabras.}
+	\label{fig:mikolovmodels}
+\end{figure}
+
+
+El modelo CBOW está enfocado en resolver la misma tarea que los modelos basados en n-gramas: predecir la palabra siguiente dada una sucesión de palabras. Por otro lado, el modelo Skip-Gram permite determinar la distribución de las palabras adyacentes a una palabra dada. En ese sentido, se puede entender que el modelo Skip-Gram es el modelo \textit{inverso} del modelo CBOW. Sin embargo, el enfoque permite:
+\begin{enumerate}
+	\item Manejar una cantidad más amplía de palabras contexto. Por ejemplo, su trabajo se emplearon 10 palabras contexto.
+	\item La proyección permite de alguna manera rescatar la estructura semántica que menciona Harris.
+	\item La estructura permite inferir el significado de palabras desconocidas.
+\end{enumerate}
+
+El modelo propuesto por Mikolov usualmente se le conoce como \textit{word2vec} y es el enfoque se sigue empleando a la fecha con algunas modificaciones, pero sin perder su esencia. ¿Pero como funciona el modelo? Para ello resulta necesario definir algunos términos. El primer término es la codificación One-Hot, la cual, de acuerdo con \cite{bruce2020practical} se emplean en modelos
+
+\begin{defi}[Codificación One-Hot]
+	\label{def:one-hot}
+	Dada una variable categórica $X$ con $p$ niveles, una observación de ésta puede codificarse como un vector binario $X'$ de dimensión $p$ donde $1$ índica el nivel observado.
+\end{defi}
+
+En los modelos basados en N-gramas cada palabra se puede considerar una variable aleatoria de $V$ niveles, donde $V$ es el número de palabras del vocabulario como ya se mencionó en el apartado anterior. Entonces si la primera palabra de un texto $W_1$ es la i-ésima palabra del vocabulario, $W_1$ puede codificarse como $\bigl[\underbrace{0,\ldots0}_{i-1},1,\underbrace{0,\ldots,0}_{V-i}\bigr]'$.
+
+Luego, según \cite{rong2014word2vec}, el modelo planteado por la Fig.~\ref{fig:cbow} supone que cada palabra se codifica usando One-Hot. En ese sentido, el empleo de $N$ palabras contexto implicaría el empleo de $N\times V$ neuronas de entrada. Sin embargo, un supuesto del modelo de Mikolov consiste en considerar que está proyección es invariante a la posición, es decir, que la información que proporciona una palabra al contexto de otra no depende de su distancia a la palabra sino simplemente si está dentro de una vecindad definida \textit{a priori}\footnote{De ahí el nombre de bolsa de palabras, es como si las palabras se metieran en una bolsa y es esa bolsa la que da el contexto de la palabra.}. En ese sentido, dada una secuencia de $L$ palabras si el contexto de la palabra $L+1$ solo depende de las $N$ palabras anteriores, se tiene que si $\mathbf{P}$ un vector $p$ dimensional es el vector proyección de la capa oculta, entonces:
+$$\mathbf{P} = \mathbf{\Omega}'_1 \mathbf{W} $$
+donde $\mathbf{W} = \frac{1}{N}\sum_{i=L-N+1}^{L}\mathbf{W}_i$ es un vector de dimensión $V$ y $\mathbf{\Omega}_1$ es la matriz de pesos asociada a la transición entre la capa de entrada y la capa de proyección. Finalmente, lo que se calcula un vector de probabilidades $\mathbf{Y}$ de dimensión $V$ donde cada entrada está asociada a cada una de las palabras del vocabulario. Para ello se emplea la función de activación \textit{softmax}. Así, si $\mathbf{U}$ es el vector proyección resultado de proyectar $\mathbf{P}$, es decir:
+$$\mathbf{U} = \mathbf{\Omega}'_2 \mathbf{P} $$
+Entonces, la j-ésima entrada de $\mathbf{Y}$ se puede calcular como:
+$$y_j = \frac{e^{u_j}}{\sum_{k=1}^{V}e^{u_k}} $$
+la anterior expresión corresponde a la función de activación \textit{softmax} y $u_j$ corresponde a la j-ésima entrada el vector $\mathbf{U}$. Similarmente, el modelo planteado por la Fig.~\ref{fig:skip-gram} puede entenderse de manera análoga, solo que en este caso 
+$$\mathbf{P} = \mathbf{\Omega}'_1 \mathbf{W} $$
+con $\mathbf{W}$ donde es la representación One-Hot de la palabra a proyectar. Note que no se cambia la matriz de pesos del modelo CBOW, \cite{goldberg2014word2vec} mencionan que la matriz de pesos para el modelo Skip-Gram es la misma que para el modelo CBOW. Más aún, debido a la codificación de la palabra a proyectar, la proyección de ésta consiste únicamente de una de las columnas de $\mathbf{\Omega}'$. Por lo tanto, $\mathbf{\Omega}$ posee la información semántica de todo el vocabulario.
+
+\cite{bellegarda2016state} mencionan que $\mathbf{\Omega}$ se le conoce como \textit{embebido de palabras}\footnote{También puede usar el concepto ``encaje de palabras''.}. Además, afirman que es en el espacio vectorial formado por todas las posibles proyecciones donde se encuentra representadas la estructura semántica (Fig.~\ref{fig:word_embedding}) y donde es posible realizar operaciones como $$\mathbf{e}_{\mbox{rey}}-\mathbf{e}_{\mbox{hombre}}+\mathbf{e}_{\mbox{mujer}}=\mathbf{e}_{\mbox{reina}}$$ donde $\mathbf{e}_{w_j}$ es la proyección de la palabra $w_j$. Sin embargo, \cite{goldberg2014word2vec}  menciona que no se conoce la razón por la que el enfoque funciona y que lo único claro es que funciona\footnote{Hasta el 2021 no existe no existe trabajos que den razón del porqué el enfoque de Mikolov refleja lo mencionado en el trabajo de Harris hace ya cerca de siete décadas.}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{img/word_embedding}
+	\caption{Representación del embebido de palabras bajo $\mathbf{P}$ de dimensión dos. Gráfico de elaboración propia.}
+	\label{fig:word_embedding}
+\end{figure}
+
+\subsection{Modelo GloVe}
+
+\cite{pennington2014glove} propuso un trabajo en la misma dirección que Mikolov: vectorizar las palabras. Sin embargo, su enfoque parte de una matriz de co-ocurrencias $\mathbf{X}$ donde sus entradas $x_{ij}$ es el número de veces que la j-ésima palabra, $w_j$ del vocabulario aparece en el contexto de la palabra i-ésima, $w_i$. De esta forma, la probabilidad de que la $w_j$ ocurra en el contexto de $w_i$ puede calcularse como sigue:
+$$P_{i,j} = \frac{x_{ij}}{x_{i\cdot}}$$
+Más aún, Pennington y su equipo hacen las siguientes observaciones:
+\begin{itemize}
+	\item Das tres palabras $w_{i_1}$, $w_{i_2}$ y $w_{i_3}$. Si $w_{i_3}$ está más relacionada con $w_{i_1}$ que con $w_{i_2}$. Entonces $P_{i_1,i_3} > P_{i_2,i_3}$. Por lo cuál,  se espera que el cociente $P_{i_1,i_3}/P_{i_2,i_3}$ sea grande. Por otro lado, si $w_{i_3}$ está más relacionada con $w_{i_2}$ que con $w_{i_1}$ entonces se esperaría que el cociente $P_{i_1,i_3}/P_{i_2,i_3}$ sea pequeño.
+	
+	\item Debe existir alguna función $F\left(w_{i_1},w_{i_2},w_{i_3}\right)$ tal que pueda recuperar dichos cocientes. 
+	
+	\item Esa misma función debe poder capturar el contexto dado por la palabra $w_{i_3}$ y rescatar la diferencia entre las palabras mismas. Por ello, resulta sensato proponer que $$F\left(w_{i_1},w_{i_2},w_{i_3}\right)= F\left(\left(w_{i_1}-w_{i_2}\right)'w_{i_3}\right) = \frac{F\left(w_{i_1}'w_{i_3}\right)}{F\left(w_{i_2}'w_{i_3}\right)}$$
+\end{itemize}
+
+Finalmente, el modelo GloVe (Global Vectors) es el par ordenado de matrices $\left(\mathbf{W},\tilde{\mathbf{W}}\right)$ tal que:
+\begin{equation}
+	\label{eq:glove}
+	\ln x_{ij} = \mathbf{w}'_i\tilde{\mathbf{w}}_k + b_i + \tilde{b}_k 
+\end{equation}
+donde $\mathbf{w}_i$ es la i-ésima columna de $\mathbf{W}$, $\tilde{\mathbf{w}}_k$ la k-ésima columna de $\tilde{\mathbf{W}}$, $b_i$ es una constante de sesgo asociada a la representación de $\mathbf{w}_i$ y, $\tilde{b}_k$ es una constante de sesgo asociada a la representación del contexto de $\tilde{\mathbf{w}}_k$ . Expresión que puede resolverse mediante mínimos cuadrados mediante la siguiente función de error:
+\begin{equation}
+	\label{eq:glovels}
+	E = \sum_{i,j} f\left(x_{ij}\right)\left(\mathbf{w}'_i\tilde{\mathbf{w}}_k + b_i + \tilde{b}_k - \ln x_{ij}\right)^2 
+\end{equation}
+donde $f$ es una función de penalización dada por:
+\begin{equation}
+	f(x) = \left\lbrace\begin{array}{ll}
+		\left(\frac{x}{100} \right)^{3/4}& \mbox{si } x < 100\\
+		1 & \mbox{o.c}
+	\end{array} \right.
+\end{equation}
+
+\cite{shi2014linking} mencionan que, en la practica, es altamente probable que se tengan varias entradas $x_{ij}=0$ por lo que resulta conveniente sustituir $x_{ij}$ por $x_{ij} +1$. Además de que, las constantes de sesgo no se emplean en la optimización dejando su obtención a un paso posterior empleando algún algoritmo de descomposición de matrices.
+
+\section{Pre-procesamiento}
+\label{sec:sec23}
+
+\cite{chomsky2004estructuras} menciona que es imposible, solo recolectando locuciones, descubrir todos los patrones existentes en el lenguaje. En ese sentido, lo único que queda es apostar por el volumen. Sin embargo, la cantidad de locuciones revisadas es relativamente pequeña en comparación con la cantidad de locuciones no revisadas que abundan en la red. Por esta razón muchos trabajos han mirado mirado a la web y en particular a las redes sociales, dentro de las cuales resalta Twitter. Sin embargo, de acuerdo con \cite{clark2011text}, la irregularidad de las locuciones hace difícil su uso en aplicaciones de PLN y es por ello que resulta necesario pre-procesar la información.
+
+Las tareas de pre-procesamiento varían en función de las irregularidades de la fuente. En este trabajo, se empleó con la información de la red social Twitter. En ese sentido, \cite{billal2016efficient} mencionan que el pre-procesamiento consiste en tres tareas fundamentales: Normalización, Segmentación y Reconocimiento de Entidades Nombradas (REN).
+
+\subsection{Normalización}
+La normalización consiste en darle regularidad a las palabras. En redes sociales es común que para hacer énfasis se repitan algunos de los caracteres que conforman la palabra. Por ejemplo, en lugar de escribir \textit{mucho} se escriba \textit{muuuuucho}. Otro problema con la información obtenida de las redes sociales es la eliminación de las vocales o el cambio de algunos caracteres. Por ejemplo, en lugar de escribir \textit{porque} solo se escribe \textit{pq}. Otro problema clásico son los errores de ortográficos. Por ejemplo, escribir \textit{decisión} en lugar de \textit{decisión}. Sin embargo, de acuerdo con los resultados obtenidos por \cite{hassan2013social}, el problema principal consiste en detectar si en efecto se está ante la presencia de una irregularidad o no. Así, la normalización consiste en una especie de suavizamiento del texto. 
+
+\subsubsection{Problemas por énfasis y expresiones regulares}
+Uno puede pensar en la Gramática Generativa de Chomsky en una especie de meta-lenguaje, en el sentido de que, como ya se había mencionado anteriormente, los elementos del lenguaje que propone son oraciones y el alfabeto son los morfemas. Pero note que, a su vez los morfemas con pueden ser elementos de otro lenguaje (una especie de sub-lenguaje) donde, su alfabeto son los caracteres como las letras del abecedario latino.
+
+En la práctica computacional, se sustituye a los morfemas por palabras completas. Así, el lenguaje es una colección de palabras, en lugar de morfemas como proponía Chomsky. De esta forma, en un sentido estricto, el hacer énfasis repitiendo caracteres lleva a que, por ejemplo, palabras como \textit{mucho}, \textit{muuucho} y \textit{muuuuuchoooooo} formen parte del lenguaje. Sin embargo, humanamente todas estas palabras son mapeadas a una única palabra \textit{mucho}. Por lo tanto, el objetivo es poder describir la regularidad presente en el énfasis para luego, hacer el mapeo correspondiente a esa única palabra.
+
+Un de los usos de las expresiones regulares es la realización de tareas como la mencionada en el párrafo anterior. \cite{goyvaerts2012regular} definen una expresión regular como un patrón especifico de texto, es otras palabras, una regularidad en el lenguaje. Formalmente, en teoría de la computación, de acuerdo con \cite{cohen1991introduction} una expresión regular es un subconjunto $A$ de palabras de un lenguaje con un alfabeto $\Sigma$ que puede ser expresadas mediante una serie finita de las siguientes operaciones:
+
+\begin{enumerate}	
+	\item \textit{Concatenación.} Dadas dos cadena de caracteres $s_1$ y $s_2$ formadas por una cantidad finita de caracteres del alfabeto $\Sigma$. Se define la concatenación de éstas como $$s_1s_2 = \left\lbrace s_1s_2 \right \rbrace$$
+	
+	\item \textit{Unión.} Dadas dos cadena de caracteres $s_1$ y $s_2$ formadas por una cantidad finita de caracteres del alfabeto $\Sigma$. Se define la unión de éstas como $$s_1+s_2 = \left\lbrace s_1, s_2 \right \rbrace$$
+	
+	\item \textit{Estrella de Kleene.} Dada una cadena de caracteres $s$ formada por una cantidad finita de caracteres del alfabeto $\Sigma$. Se define la estrella de Kleene de $s$ como el siguiente conjunto $$s* = \left\lbrace\Lambda, s, ss, sss, \ldots \right \rbrace$$
+	
+	\item \textit{Estrella positiva de Kleene.} Dada una cadena de caracteres $s$ formada por una cantidad finita de caracteres del alfabeto $\Sigma$. Se define la estrella de Kleene de $s$ como el siguiente conjunto $$s^{+} = \left\lbrace s, ss, sss, \ldots \right \rbrace$$	
+\end{enumerate}
+
+De esta manera, es posible describir la regularidad de énfasis de la palabra \textit{mucho} como sigue:
+$$mu^+cho^+ = \left\lbrace mucho, muchoo, \ldots, muucho, muuchoo, \ldots, muuucho, muuuchoo, \ldots \right \rbrace$$
+
+Sin embargo, la implementación de expresiones regulares dentro de un lenguaje de programación tiene algunas particularidades extras. En Python, el uso de expresiones regulares se maneja en dos niveles, a nivel de carácter y a nivel de expresión regular.
+
+\paragraph{Nivel de carácter.} En Python, se dice que se trabaja a nivel de carácter cuando se definen lo que se conocen como clases de carácter. Para definir una clase de carácter se emplean corchetes. Así, dados dos caracteres del alfabeto, $c_1$ y $c_2$, se tiene las siguientes equivalencias:
+$$[c_1c_2] = \left\lbrace c_1, c_2 \right\rbrace$$
+$$[\mbox{\textasciicircum}c_1c_2] = \left\lbrace c_1, c_2 \right\rbrace^{c}$$
+Note que las clases de caracteres son subconjuntos de $\Sigma$. Para facilitar la descripción de clases de carácter, Python permite definir de manera corta la clase de minúsculas, mayúsculas y dígitos como: $$[abcd\ldots z] = [a-z]$$ $$[ABCD\ldots Z] = [A-Z]$$ $$[0,1,2\ldots 9] = [0-9]$$ Además, de que existen siete clases de carácter predefinidas y que se muestra en la Tabla~\ref{tb:caracterclassre}.
+
+	\begin{table}[h]
+	\centering
+	\caption{Expresiones predefinidas en Python. Tabla de elaboración propia con base en lo expuesto en la obra de \cite{lopez2014mastering}. }
+	\label{tb:caracterclassre}
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Forma corta} & \textbf{Forma larga}   \\ \hline
+			.                    & $[\mbox{\mbox{\textasciicircum}}\mbox{\textbackslash{}}n]$         \\ \hline
+			\textbackslash{}d    & $[0-9]$                \\ \hline
+			\textbackslash{}D    & $[\mbox{\mbox{\textasciicircum}}0-9]$        \\ \hline
+			\textbackslash{}s    & $[\mbox{\textbackslash{}}t\mbox{\textbackslash{}}n\mbox{\textbackslash{}}r\mbox{\textbackslash{}}f\mbox{\textbackslash{}}v]$         \\ \hline
+			\textbackslash{}S    & $[\mbox{\mbox{\textasciicircum}}\mbox{\textbackslash{}}t\mbox{\textbackslash{}}b\mbox{\textbackslash{}}r\mbox{\textbackslash{}}f\mbox{\textbackslash{}}v]$ \\ \hline
+			\textbackslash{}w    & $[a-zA-Z0-9]$          \\ \hline
+			\textbackslash{}W    & $[\mbox{\mbox{\textasciicircum}}a-zA-Z0-9]$  \\ \hline
+		\end{tabular}
+	\end{table}
+
+Adicional a esto, Python reconoce 4 operaciones generales que puede aplicarse tanto a un carácter como a una clase de carácter:
+\begin{itemize}
+	\item \textbf{Estrella de Kleene.} La estrella de Kleene se sigue representando por el símbolo asterisco (*).
+	
+	\item \textbf{Estrella positiva de Kleene.} La estrella positiva de Kleene se sigue representando por el símbolo de suma (+).
+	
+	\item \textbf{Operación cerradura de pregunta.} En Python símbolo de cerradura de pregunta (?) indica que ese carácter o clase de carácter puede aparecer o no.
+	
+	\item \textbf{Rango de repeticiones.} En Python puede agregarse al final de un carácter o una clase de carácter $\lbrace\rbrace$ para indicar ciertas repeticiones del carácter o la clase. En ese sentido, $\lbrace n\rbrace$ indica una cantidad fija de repeticiones,  $\lbrace n,\rbrace$ indica una cantidad mínima de repeticiones,  $\lbrace,n\rbrace$ una cantidad máxima de repeticiones y,  $\lbrace n,m\rbrace$ un rango de repeticiones.
+\end{itemize}
+
+\paragraph{Nivel de expresión regular.} Para definir una expresión regular en Python esta se escribe entre diagonales como sigue: $$r'\mbox{Expresión regular}'$$
+Además para dado que el texto de búsqueda puede ser extenso, Python agrega 6 delimitadores de búsqueda, los cuales se muestran en la Tabla~\ref{tb:redelims}. 
+\begin{table}[h]
+	\centering
+	\caption{Delimitadores de expresiones regulares. Tabla de elaboración propia con base en lo lo expuesto en la obra de \cite{lopez2014mastering}. }
+	\label{tb:redelims}
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Notación en Python} & \textbf{Significado}   \\ \hline
+		\textasciicircum                    & Inicio de línea         \\ \hline
+		\textdollar    & Fin de línea                \\ \hline
+		\textbackslash{}b    & Frontera de palabra        \\ \hline
+		\textbackslash{}B    & Todo lo que no es frontera de palabra    \\ \hline
+		\textbackslash{}A    & Inicio de la entrada \\ \hline
+		\textbackslash{}Z    & Fin de entrada         \\ \hline
+	\end{tabular}
+\end{table}
+
+Para dar claridad sobre el uso de los delimitadores en las expresiones regulares, considere la siguiente entrada:
+\begin{quote}
+	\textit{Hola Juanito Hola\\
+	2Hola Hola Pedrito Hola}
+\end{quote}
+Así se tiene lo siguiente:
+\begin{itemize}
+	\item La expresión regular \textit{r'Hola'} hará correspondencia con los todos los \textit{Hola}.
+	
+	\item La expresión regular \textit{r'\textasciicircum(Hola)'} solo hará correspondencia con el primer \textit{Hola}.
+	
+	\item La expresión regular \textit{r'(Hola)\textdollar'} solo hará correspondencia con el segundo y último \textit{Hola}.
+	
+	\item La expresión regular \textit{r'\textbackslash{}bHola'} hará correspondencia con todos los \textit{Hola}, excepto el tercero.
+	
+	\item La expresión regular \textit{r'\textbackslash{}BHola'} solo hará correspondencia con el tercer \textit{Hola}.
+	
+	\item La expresión regular \textit{r'\textbackslash{}A(Hola)'} solo hará correspondencia con el primer \textit{Hola}.
+	
+	\item La expresión regular \textit{r'(Hola)\textbackslash{}Z'} solo hará correspondencia con el último \textit{Hola}.
+	
+\end{itemize}
+
+ 
+
+\paragraph{Generalidades.} Sea cual sea el nivel de descripción, en Python, debido a la notación existen 12 símbolos que no significan el símbolo de forma literal: Diagonal inversa (\textbackslash), intercalación (\textasciicircum), símbolo de dólar (\textdollar), punto (.), barra vertical (\textpipe), cierre de pregunta (?), asterisco (*), símbolo de suma (+), apertura de paréntesis ('('), cerradura de paréntesis (')'), apertura de corchete ([)  y apertura de llave (\{)\footnote{Como nota curiosa en \LaTeX \ la diagonal inversa, la intercalación y el símbolo de dólar también son símbolos prohíbidos}.
+
+\subsubsection{Corrección automática de errores}
+
+\cite{hladek2020survey} mencionan que un algoritmo de corrección de errores consta de tres elementos: diccionario, modelo del error y modelo de contexto, siendo éste último opcional. La idea general es emplear el diccionario para generar candidatos y acomodarlos de acuerdo con el modelo de error y el modelo de contexto.
+
+\paragraph{Modelo del error.} Consiste en evaluar cuál es la viabilidad de cambiar una palabra incorrecta por alguna palabra correcta del diccionario. La viabilidad en este caso se cuantifica por medio de la distancia entre la palabra incorrecta y las palabras del diccionario. Así, dos palabras son igualmente viables como posibles correcciones si su distancia a la palabra incorrecta es la misma. Para ello, \cite{hladek2020survey} mencionan que se emplean principalmente las siguientes funciones de distancia: LD, DLD, LCS las cuales se conocen como métricas o distancias de edición.
+
+\cite{damerau1964technique} menciona una forma de determinar es viable corregir una cadena, $s_1$, por otra cadena, $s_2$, es mediante el empleo de la distancia de Hamming. En este sentido, la corrección es viable si sus longitudes son iguales y la distancia de Hamming entre ambas es a lo sumo 1. \cite{waggener1995pulse} definen la distancia de Hamming para cadenas como sigue:
+\begin{defi}[Distancia de Hamming]
+	Sean $s_1 = c_{s_1}^1c_{s_1}^2\ldots c_{s_1}^n$ y $s_1 = c_{s_2}^1c_{s_2}^2\ldots c_{s_2}^n$ dos cadenas formadas por $n$ caracteres. Entonces, la distancia de Hamming entre las cadenas está dada por:
+	\begin{equation}
+		\label{eq:hammingstring}
+		d(s_1,s_2) = \sum_{i=1}^{n} I\left(c_{s_1}^i \neq c_{s_2}^i\right)
+	\end{equation}
+\end{defi}
+
+Por ejemplo, \textit{menestro}\footnote{La siguiente publicación en Twitter \url{https://twitter.com/Justaceo1/status/1379135241898590210} posee el uso \textit{menestro}.} pudiera ser sustituido por \textit{ministro}, \textit{menester} o \textit{maestros}. Luego, empleado (\ref{eq:hammingstring})
+$$d(\mbox{menestro},\mbox{ministro}) = 2$$ $$d(\mbox{menestro},\mbox{menester}) = 2$$ $$d(\mbox{menestro},\mbox{maestros}) = 7$$
+Por lo que los tres candidatos pueden ordenarse como sigue, $$\mbox{ministro} = \mbox{menester} > \mbox{maestros}$$
+
+Por otro lado, \cite{levenshtein1966binary} identifica tres fuentes de ruido en las cadenas: inserción, eliminación e inversión. La inserción consiste de agregar algún carácter en alguna posición dentro de la cadena original; la eliminación, la operación inversa de la inserción, es la eliminación de algún carácter de la cadena y; la inversión que consiste en permutar una subcadena de la cadena. En ese sentido se define:
+\begin{defi}[Distancia LD]
+	Sean $s_1$, $s_2$ dos cadenas la distancia LD entre ambas cadenas es el número de inserciones, eliminaciones e inversiones mínimas necesarias para transformar $s_1$ en $s_2$.
+\end{defi}
+De esta forma, bajo la distancia LD se tiene que:
+$$d(\mbox{menestro},\mbox{ministro}) = 4$$ $$d(\mbox{menestro},\mbox{menester}) = 3$$ $$d(\mbox{menestro},\mbox{maestro}) = 3$$ $$d(\mbox{menestro},\mbox{maestros}) = 4$$
+Por lo que los cuatros candidatos pueden ordenarse como sigue, $$\mbox{menester} = \mbox{maestro} > \mbox{ministro} = \mbox{maestros}$$
+Note que \textit{maestro} ahora puede ser candidato porque en este caso no existe una condición sobre la longitud.
+
+Una tercera alternativa consiste en reconocer una operación adicional a las tres propuesta por Levenshtein: la sustitución. Debido a que, técnicamente, ésta adición es equivalente a mezclar la propuesta de Damerau y Levenshtein, a esta alternativa se le conoce como distancia DLD (Damerau-Levenshtein Distance). Bajo esta alternativa
+$$d(\mbox{menestro},\mbox{ministro}) = 2$$ $$d(\mbox{menestro},\mbox{menester}) = 2$$ $$d(\mbox{menestro},\mbox{maestro}) = 2$$ $$d(\mbox{menestro},\mbox{maestros}) = 3$$
+Por lo que los cuatros candidatos pueden ordenarse como sigue, $$\mbox{menester} = \mbox{maestro} = \mbox{ministro} > \mbox{maestros}$$
+
+Finalmente, otro criterio para ordenar los candidatos es el criterio de subcadena común más larga con $k$ errores bajo la distancia de Hamming descrito por \cite{flouri2015longest}.
+
+\begin{defi}[Subcadena más larga común]
+	Sean $s_1$ y $s_2$ cadenas de longitud $n$ y $m$ con $n \leq m$. Dado un entero $k$ y $\phi(s,i,j)$ subcadena que va del i-ésimo carácter al j-ésimo carácter de una cadena $s$ con $i < j$. La subcadena común más larga con $k$ de $s_1$ y $s_2$, $\phi^{*}$ es tal que:
+	
+	$$\phi^{*} = \max_{i,j} \phi(s_1,i,j) \quad \mbox{s.a }\quad d(\phi(s_1,i,j),\phi(s_2,i,j))\leq k$$
+	donde la distancia es la distancia de Hamming.
+\end{defi}
+
+Por ejemplo, si $k = 2$ se tiene que la subcadena más larga con 2 errores de \textit{menestro} respecto \textit{ministro} es \textit{menestro}, respecto \textit{menester} es \textit{menestro}, respecto \textit{maestro} es \textit{men} y, respecto a \textit{maestros} es \textit{men}. Por ende los candidatos pueden ordenarse como:
+$$\mbox{menester} = \mbox{ministro} > \mbox{maestro} = \mbox{maestros}$$
+
+
+\paragraph{Modelo de de contexto.} En el ejemplo de la palabra \textit{menestro}, el contexto:
+
+\begin{quote}
+	\textit{mucha vehemencia con las faltas de ortografía de la consejera de Vox en Murcia pero el otro día con la cagada del \textbf{menestro} de Universidades...}
+\end{quote} 
+
+deja entrever que la palabra más adecuada es \textit{ministro}. Los modelos de contexto, se encargan de asignar una segunda calificación a los candidatos con base en el contexto, el cual, usualmente está compuesto por las palabras que anteceden al término a corregir.
+
+\cite{hladek2020survey}  menciona que los modelos de contexto empleados para corrección de errores son las GCL, modelos basado en n-gramas, Modelos Ocultos de Markov (MOM), técnicas de aprendizaje máquina como Árboles de Desición, Máquinas de Vectores de Soporte (MVS) o Redes Neuronales (RN). Sin embargo, la herramienta usada varía de lenguaje a lenguaje. En el caso del español, \cite{hladek2020survey} solo identifican cuatro trabajos, de los cuales solo uno de ellos está enfocado al pre-procesamiento de texto proveniente de redes sociales, el trabajo de \cite{melero2016selection}.
+
+Melero y su equipo proponen, para el caso del español, un modelo mixto que consiste en la ponderación de cuatro modelos basados en 3-gramas, el cuál está dado por la siguiente expresión:
+\begin{equation}
+	\label{eq:melero1}
+	\small
+	f(s,w^{*}) = \lambda_1f_{TC}(s,w^{*}) + \lambda_2f_{LC}(s,w^{*}) + \lambda_3f_{Lem}(s,w^{*}) + \lambda_4f_{PoS}(s,w^{*})
+\end{equation}
+donde $s$ es la cadena a corregir\footnote{Se hace la distinción entre palabra y cadena, en el entendido que toda palabra es una cadena pero, no toda cadena es una palabra.} y $w^{*}$ es una palabra candidato, $\lambda_i>0$, $\sum_{i=1}^{4}\lambda_i = 1$ y 
+\begin{equation}
+	\tiny
+	f_{T}(s,w^{*}) = \sum_{i} P\left[w^{*} \in C_{W_n}^i\vert W_{n-1} \in C_{W_{n-1}},W_{n-2} \in C_{W_{n-2}}\right]P\left[W_{n-1} \in C_{W_{n-1}} \vert W_{n-2} \in C_{W_{n-2}}\right]P\left[W_{n-2} \in C_{W_{n-2}}\right]
+\end{equation}
+donde $T=TC, LC, Lem, PoS$ es el nivel del modelo, $C_{W}$ es la clase de la palabra relativa a $t$. Donde el nivel \textit{TC} se refiere al texto sin transformar, \textit{LC} al texto en minúsculas, \textit{Lem} a la forma lematizada del texto y \textit{PoS} a la forma etiquetada del texto. Por ejemplo, el caso de la cadena \textit{menestro} bajo el modelo de 3-gramas las palabras contexto son \textit{cagada} y \textit{del}, así si para la palabra candidata \textit{ministro}, se tiene: 
+$$f_{TC}(s,w^{*}) = f_{TC}(s,w^{*}) = \begin{array}{c}
+	P\left[\mbox{ministro} \vert \mbox{del}, \mbox{cagada}\right]	P\left[\mbox{del} \vert \mbox{cagada}\right]P\left[\mbox{cagada}\right]
+\end{array}$$
+En los primeros dos niveles las clases son las mismas palabras, solo que a nivel \textit{TC} en uno se mantiene la capitalización del texto original y, a nivel \textit{LC} se pasa todo el texto a minúsculas. Por otro lado, para el nivel \textit{Lem} se tiene:
+$$f_{Lem}(s,w^{*}) = \begin{array}{c}
+	P\left[\mbox{ministro} \vert \mbox{del}, \mbox{cagar}\right]	P\left[\mbox{del} \vert \mbox{cagar}\right]P\left[\mbox{cagar}\right]
+\end{array}$$
+Mientras que a nivel \textit{PoS} se tiene:
+$$\small f_{PoS}(s,w^{*}) = \begin{array}{c}
+	P\left[\mbox{sustantivo} \vert \mbox{determinante}, \mbox{sustantivo}\right]	P\left[\mbox{determinante} \vert \mbox{sustantivo}\right]P\left[\mbox{sustantivo}\right]
+\end{array}$$
+
+Sin embargo, Melero y su equipo estiman que $\lambda_4 = 0$, $\lambda_3 = 0.0962$ y $\lambda_1=\lambda_2 = 0.4519$. Con lo que (\ref{eq:melero1}) puede reducirse a:
+\begin{equation}
+	\label{eq:melero2}
+	f(s,w^{*}) \approx 0.4519f_{TC}(s,w^{*}) + 0.4519f_{LC}(s,w^{*}) 
+\end{equation}
+
+\subsection{Segmentación}
+
+En Twitter parte de la información está contenida en lo que se denomina \textit{hashtag}, los cuales organizan la información por temas o eventos \citep{small2011hashtag}. Por ejemplo, el tweet:
+
+\begin{quotation}
+	\#Anticonvocatoria donde nada \#CambiaElJuego todo lo que escucho es \#AMLOLujoDePresidente efímero y devaluado igual \#Letrinus y todos los demás.\\ \begin{flushright}
+		\textit{-@causa\_nuestra}\footnote{El tweet puede ser consultado en \url{https://twitter.com/causa_nuestra/status/1377178856193359874}}
+	\end{flushright}
+\end{quotation}
+contiene cuatro \textit{hashtags} de los cuáles dos tiene información que debe ser segmentada: \textit{Cambia el juego} y \textit{AMLO lujo de presidente}. En ese sentido, el algoritmo más usado de segmentación es el algoritmo basado en 2-gramas propuesto por \cite{norvig209natural}. En su trabajo Norvig propone dada una cadena $s_0$ se puede segmentar como $s_0 = w_1s_1$, donde a su vez se puede segmentar $s_1 = w_2s_2$ y, así sucesivamente, donde $s_{i+1}$ es la cadena sobrante al quitar $w_{i+1}$ de la cadena $s_{i}$ y
+\begin{equation}
+	\label{eq:norvig}
+	w_{i+1} = \arg\max_{w^{*}} P\left[w_{i+1} \vert w_{i}\right]P\left[w_{i}\right]P[s_{i+1}]
+\end{equation}
+donde $P[s_{i+1}]$ funciona como un ponderador y las probabilidades se calculan usando la distribución de frecuencias del \textit{corpus}. Sin embargo, como en la mayoría de los casos las cadenas $s_i$ no son palabras, entonces Norvig propone un modelo probabilístico para palabras desconocidas dada por la siguiente expresión:
+\begin{equation}
+	\label{eq:norvigunknown}
+	P[s] = \frac{10}{\vert s \vert 10^{\vert s \vert}}
+\end{equation}
+Sin embargo, Norvig comenta que la expresión anterior no tiene ningún sustento teórico y se debe a un ajuste empírico. En ese sentido, \cite{cano2019segmentacion} encontró que, para el caso del español, una mejor alternativa es el uso de un modelo de probabilidad Weibuill discreta de parámetros $\alpha = 7.5291$ y $\beta = 2.2066$ donde la variable aleatoria sigue estando en términos de la longitud de la cadena.
+
+\subsection{Reconocimiento de Entidades Nombradas}
+
+El REN consiste en identificar sustantivos propios, algunas abreviaturas como el tipo de moneda o fechas en el texto. Los nombre de los países, ciudades y nombres propios son ejemplos de entidades nombradas. Usualmente, éstas están compuestas por una sola \textit{palabra}, como \textit{Mexicali}, \textit{México} o \textit{Juan}. Sin embargo, no todas las entidades nombradas son de una palabra. Por ejemplo:
+
+\begin{quotation}
+	Cierto. Algo tuve que ver representando a un \textbf{Instituto Universitario Tecnológico}.\\ \begin{flushright}
+		\textit{-@castellimika}\footnote{El tweet puede ser consultado en \url{https://twitter.com/castellimika/status/1379226926028587009}}
+	\end{flushright}
+\end{quotation}
+En este sentido \textit{Instituto Universitario Tecnológico} es una entidad nombrada. Dentro del texto formal, las entidades nombradas tienen la característica de estar capitalizadas; pero dentro del texto informal esto no siempre ocurre. Por ejemplo, en el siguiente tweet además de otros errores se puede apreciar que la entidad nombrada \textit{Mexicali} no está capitalizada.
+
+\begin{quotation}
+	Otro gran lunes como cada semana \#LaMesaRenonaEnVivo saludos @franco\_esca @elchristianmeza @lamolechida desde \textbf{mexicali} por otra gran noche de risas \#soytoronto y tambien saludos para el rubiiiiiiiiiii me encanta que le cagues la vida al @elchristianmeza\\ \begin{flushright}
+		\textit{-@bambino03garcia
+		}\footnote{El tweet puede ser consultado en \url{https://twitter.com/bambino03garcia/status/1379275928233107458}}
+	\end{flushright}
+\end{quotation}
+
+\cite{nouvel2016named} reconocen que existen cinco enfoques para el REN, cuatro supervizados: Naïve Bayes, MOM, Redes Neuronales y los Campos Aleatorios Condicionales (CAC) y uno no supervizado basado en semántica. Siendo los CAC de Cadena Lineal el enfoque con mejores resultados en la tarea.
+
+Debido a la relación que tienen los CAC con los MOM, se empezarán a describir los MOM primero. \cite{ross2014introduction} define estos como sigue:
+
+\begin{defi}[Modelo de Markov Oculto]
+	Sea $\left\lbrace X_i, i=1,2,\ldots\right\rbrace$ una cadena de Markov con probabilidades de transición $P_{ij}$ y probabilidades de estado inicial $p_i$. Suponga también que, existe un conjunto finito de señales $\mathcal{S}$ que se emite cada que la cadena de Markov entra a un estado. Además, considere que cuando la cadena de Markov entra a un estado $j$ entonces, independientemente del estado previo de la cadena y la señales previas, la probabilidad de que la señal emitada sea $s$ solo depende del estado actual $j$, es decir, $p(s|j)$ de esta forma si $S_i$ denota la i-ésima señal emitida se tiene que:
+	$$p(s|j) = P\left[S_n \vert X_1,S_1,X_2,S_2\ldots,X_{n-1},S_{n-1},X_{n}=j\right]$$
+	En ese sentido, note que las señales $S_1,S_2\ldots$ serán una secuencia de estados observable mientras la cadena $X_1,X_2\ldots$ no lo será, siendo está una cadena de Markov oculta, y al modelo de probabilidades de transición se le conoce como Modelo de Markov Oculto (MOM).
+\end{defi}
+
+Desde el punto de vista del NER, las señales son la palabras, $W$ y, los estados de la cadena no observable las etiquetas asociadas al NER, $S$ (Fig.~\ref{fig:hmms}). Note que, adecuando la definición al contexto del NER, se tiene que:
+$$p(s|j) = P\left[W_{L+1} = w_j | S_1,W_1,S_2,W_2\ldots,S_{L},W_{L},S_{L}=s_j\right]$$ Aunque, desde el punto de vista de la aplicación se está interesado en calcular para $k\leq L$ la probabilidad de que la k-ésima entidad sea de la clase $s_j$ usando la información dada por las señales, es decir:
+
+\begin{equation}
+	\label{eq:ner1}
+	P\left[S_{k} = s_j | S_1=s_{i_1},S_2=s_{i_2},\ldots,S_L=s_{i_L}\right]
+\end{equation}
+
+\cite{nouvel2016named} menciona que, a menudo en el contexto de la NER, se acostumbra calcular de probabilidad de que una sucesión de entidades tenga ciertas etiquetas, en lugar de lo planteado en (\ref{eq:ner1}. De esta forma, si se conocen las etiquetas de las primeras $k$ entidades, la idea es encontrar las clases o etiquetas $s_{j_1},s_{j_2},\ldots,s_{j_L}$ tales que se maximice 
+\begin{equation}
+	\label{eq:hmmsolve}
+	P\left[S_{1} = s_{j_1}, \ldots, S_{L} = s_{j_L} | W_1=w_{i_1},\ldots,W_L=w_{i_L}\right]
+\end{equation}
+dado que, como ya se mencionó se conocen los primeros $k$ estados de la cadena no observable.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.7\linewidth}
+		\centering
+		\begin{tikzpicture}[->,>=stealth',auto,semithick,node distance=2cm]
+			\tikzstyle{every state}=[draw=black,thick,text=black,scale=1]
+			\node[state,fill=black!30!green]    (A)               {$X_1$};
+			\node[state,fill=black!30!green]    (B)[right of=A]   {$X_2$};
+			\node		    (C)[right of=B]   {$\cdots$};
+			\node[state,fill=black!30!green]	(D)[right of=C]	  {$X_{n}$};
+			\node		    (E)[right of=D]   {$\cdots$};
+			\node[state,fill=white!40!blue]    (Ab)[below of=A]   {$S_1$};
+			\node[state,fill=white!40!blue]    (Bb)[right of=Ab]   {$S_2$};
+			\node		    (Cb)[right of=Bb]   {$\cdots$};
+			\node[state,fill=white!40!blue]	(Db)[right of=Cb]	  {$S_{n}$};
+			\node		    (Eb)[right of=Db]   {$\cdots$};
+			\path
+			(A) edge (B)
+			(B) edge (C)
+			(C) edge (D)
+			(D) edge (E)
+			(A) edge (Ab)
+			(B) edge (Bb)
+			(D) edge (Db);
+		\end{tikzpicture}
+		\caption{Diagrama de un Modelo de Markov Oculto. Gráfico de elaboración propia. }
+		\label{fig:hmm}
+	\end{subfigure}
+	\begin{subfigure}{\linewidth}
+		\centering
+		\begin{tikzpicture}[->,>=stealth',auto,semithick,node distance=2cm]
+			\tikzstyle{every state}=[draw=black,thick,text=black,scale=1]
+			\node[state,fill=black!30!green]    (A)               {O};
+			\node[state,fill=black!30!green]    (Bc)[right of=A]   {O};
+			\node[state,fill=black!30!green]    (B)[right of=Bc]   {Día};
+			\node		    (C)[right of=B]   {$\cdots$};
+			\node[state,fill=black!30!green]	(Dc)[right of=C]	  {O};
+			\node[state,fill=black!30!green]	(D)[right of=Dc]	  {?};
+			\node		    (E)[right of=D]   {$\cdots$};
+			\node[state,fill=white!40!blue]    (Ab)[below of=A]   {Otro};
+			\node[state,fill=white!40!blue]    (Bcb)[right of=Ab]   {gran};
+			\node[state,fill=white!40!blue]    (Bb)[right of=Bcb]   {lunes};
+			\node		    (Cb)[right of=Bb]   {$\cdots$};
+			\node[state,fill=white!40!blue]	(Db)[right of=Cb]	  {desde};
+			\node[state,fill=white!40!blue]	(Eb)[right of=Db]	  {mexicali};
+			\node		    (Ec)[right of=Eb]   {$\cdots$};
+			\path
+			(A) edge (Bc)
+			(Bc) edge (B)
+			(B) edge (C)
+			(C) edge (Dc)
+			(Dc) edge (D)
+			(D) edge (E)
+			(A) edge (Ab)
+			(Bc) edge (Bcb)
+			(B) edge (Bb)
+			(Dc) edge (Db)
+			(D) edge (Eb);
+		\end{tikzpicture}
+		\caption{Diagrama de un Modelo de Markov Oculto en el contexto del NER aplicado al segundo tweet de ejemplo en este apartado. En este caso, la etiqueta 'O' significa 'Otro' para denotar que no es una entidad nombrada. Gráfico de elaboración propia. }
+		\label{fig:hmmner}
+	\end{subfigure}
+	\caption{Diagrama de Modelo Oculto de Markov, en verde se muestra la cadena de Markov oculta y en azul las señales observables.}
+	\label{fig:hmms}
+\end{figure}
+
+La expresión planteada por (\ref{eq:hmmsolve}) usualmente se resuelve recursivamente empleando el algoritmo de Viterbi. En lo que respecta a los CAC de Cadena Lineal, estos son una generalización de los MOM. Para ello, note que la expresión (\ref{eq:hmmsolve}) por definición de probabilidad condicionada es equivalente a:
+\begin{equation}
+	\label{eq:hmmsolveequiv1}
+	\scriptsize
+	P\left[S_{1} = s_{j_1}, \ldots, S_{L} = s_{j_L} | W_1=w_{i_1},\ldots,W_L=w_{i_L}\right] = \frac{	P\left[S_{1} = s_{j_1}, \ldots, S_{L} = s_{j_L}, W_1=w_{i_1},\ldots,W_L=w_{i_L}\right]}{	P\left[W_1=w_{i_1},\ldots,W_L=w_{i_L}\right]}
+\end{equation}
+La cual por la propiedad markoviana, la independencia de las señales puede reescribirse como y aplicando marginalización:
+\begin{equation}
+	\label{eq:hmmsolveequiv2}
+	\tiny
+		P\left[S_{1} = s_{j_1}, \ldots, S_{L} = s_{j_L} | W_1=w_{i_1},\ldots,W_L=w_{i_L}\right] = \frac{\prod_{h=1}^{n}P\left[S_{h}=s_{j_h}\vert S_{h-1}=s_{j_{h-1}}\right]P\left[W_{h}=w_{i_h}\vert S_{h}=s_{j_h}\right]}{\sum_{\mathbf{s}}\prod_{h=1}^{n}P\left[S_{h}=s_{j_h}\vert S_{h-1}=s_{j_{h-1}}\right]P\left[W_{h}=w_{i_h}\vert S_{h}=s_{j_h}\right]}
+\end{equation}
+Definiendo $\theta_{j_i,j_{i-1}} = \ln P\left[X_{i}=j_i\vert X_{i-1}=j_{i-1}\right]$ y $\mu_{s_i,j_i} = \ln P\left[S_{i}=s_i\vert X_{i}=j_i\right]$ la expresión anterior puede volver a escribir como:
+\begin{equation}
+	\label{eq:hmmsolveequiv3}
+	\small
+	P\left[X_{1} = j_1, \ldots, X_{n} = j_n | S_1=s_1,\ldots,S_n=s_n\right] = \frac{\prod_{i=1}^{n}\exp \left\lbrace \theta_{j_i,j_{i-1}} + \mu_{s_i,j_i} \right\rbrace}{\sum_{\mathbf{s}}\prod_{i=1}^{n}\exp \left\lbrace \theta_{j_i,j_{i-1}} + \mu_{s_i,j_i} \right\rbrace}
+\end{equation}
+Finalmente, esta última expresión puede escribirse como:
+\begin{equation}
+	\label{eq:hmmsolveequiv4}
+	\scriptsize
+	\frac{\prod_{i=1}^{n}\exp \left\lbrace \sum_{j_i,j_{i-1} \in J}\theta_{j_i,j_{i-1}}I\left(X_{i}=j_i\right)I\left(X_{i-1}=j_{i-1}\right) + \sum_{j_i \in J}\sum_{s_i \in S}\mu_{s_i,j_i}I\left(X_{i}=j_i\right)I\left(S_{i}=s_i\right) \right\rbrace}{\sum_{\mathbf{s}}\prod_{i=1}^{n}\exp \left\lbrace \sum_{j_i,j_{i-1} \in J}\theta_{j_i,j_{i-1}}I\left(X_{i}=j_i\right)I\left(X_{i-1}=j_{i-1}\right) + \sum_{j_i \in J}\sum_{s_i \in S}\mu_{s_i,j_i}I\left(X_{i}=j_i\right)I\left(S_{i}=s_i\right) \right\rbrace}
+\end{equation}
+
+Por otro lado, \cite{sutton2019introduction} define un CAC de Cadena Lineal como sigue:
+
+\begin{defi}[Campo Aleatorio Condicional de Cadena Lineal]
+	\label{def:caccl}
+	Sean $\mathbf{S}$ y $\mathbf{X}$ vectores aleatorios, $\mathbf{\theta} \in \mathbb{R}^K$ un vector de parámetros y, $\mathcal{F} = \left\lbrace f_{k}(x,x',\mathbf{s}_i)\right\rbrace_{k=1}^K$ un conjunto de funciones reales, que se llamarán funciones de características. Entonces un Campo Aleatorio Condicional de Cadena Lineal es la condicionada de $\mathbf{X}\vert \mathbf{S}$ tal que esta puede escribirse como:
+	\begin{equation}
+		P[\mathbf{X}=\mathbf{x}| \mathbf{S}=\mathbf{s}] = \frac{1}{Z(\mathbf{x})}\prod_{t=1}^{T}\exp \left\lbrace \sum_{k=1}^{K}\theta_k f_k\left(x_t,x_{t-1},\mathbf{s}_t\right)\right\rbrace
+	\end{equation}
+	con
+	\begin{equation}
+		Z\left(\mathbf{x}\right) = \sum_{\mathbf{s}}\prod_{t=1}^{T}\exp \left\lbrace \sum_{k=1}^{K}\theta_k f_k\left(x_t,x_{t-1},\mathbf{s}_t\right)\right\rbrace
+	\end{equation}
+\end{defi}
+
+Note que usando la Def.~\ref{def:caccl} con $K$ es el total de índices que recorren las sumas planteadas por (\ref{eq:hmmsolveequiv4}), las funciones indicadoras de esa misma función como las funciones de características y $\theta_{j_i,j_{i-1}}$ y $\mu_{s_i,j_i}$ como parámetros entonces se tiene que el MOM cumple con la definición de un CAC de Cadena Lineal. Pero, note que la definición permite el uso de funciones de características más elaboradas.
+
+\textbf{Falta diagrama}
+
+\section{Optimización}
+
+La estimación de los modelos y tareas de pre-procesamiento mencionadas en apartados anteriores implican una tarea de optimización. En este apartado describimos los métodos de optimización que fueron empleados en este trabajo, aunque la solución del problema de optimización no está de ninguna manera limitado al uso único de las tareas mencionadas.
+
+\subsection{Estimación de los modelos CBOW y Skip-Gram}
+
+\cite{mikolov2013efficient} describe que la tarea de estimación usando directamente el algoritmo propagación hacia atrás puede resultar muy costoso computacionalmente. Para ello, propone reducir la carga operacional mediante la aplicación de uno de los siguientes dos enfoques: muestreo negativo y optimización jerárquica.
+
+\paragraph{Muestreo negativo.} De acuerdo con \cite{rong2014word2vec} la función de pérdida del modelo CBOW está dada por la siguiente expresión:
+\begin{equation}
+	\label{eq:losscbow}
+	E = - \mathbf{W}'_{L+1}\mathbf{P} + \ln \left(\sum_{i=1}^{V} \exp\left\lbrace \mathbf{W}'_{i}\mathbf{P}\right\rbrace\right)
+\end{equation}
+
+De acuerdo con \cite{goldberg2014word2vec}, el muestreo negativo consiste en cambiar la función de pérdida planteada por (\ref{eq:losscbow}) por la siguiente expresión:
+\begin{equation}
+	\label{eq:losscbow2}
+	E = - \ln \sigma\left(\mathbf{W}'_{L+1}\mathbf{P}\right) - \sum_{i \in I_{neg}} \ln \sigma\left(\mathbf{W}'_{i}\mathbf{P}\right)
+\end{equation}
+donde $I_{neg}$ es un conjunto de índices tal que $I_{neg} \subset \left\lbrace1,2,\ldots,V\right\rbrace$. De esta forma se reducen las operaciones necesarias para aplicar el algoritmo de propagación hacia atrás. Aunque es necesario aclarar que las funciones de optimización no son equivalente, pero de acuerdo con \cite{goldberg2014word2vec} las representaciones obtenidas son similares a las que se obtendrían usando (\ref{eq:losscbow}).
+
+\paragraph{Optimización jerárquica.} El objetivo del modelo CBOW en poder calcular
+\begin{equation}
+	y_j = \frac{e^{u_j}}{\sum_{k=1}^{V}e^{u_k}} 
+\end{equation}
+es decir, la probabilidad de que la palabra siguiente con base en el contexto dado. Matemáticamente,
+\begin{equation}
+	\label{eq:optijerar1}
+	P\left[W_{L+1} = w_j \vert W_{L}=w_{i_{L}},\ldots,W_{L-N+1}=w_{i_{L-N+1}}\right]
+\end{equation} 
+En ese sentido, el método de optimización jerárquica tiene sustento en el trabajo publicado por \cite{morin2005hierarchical} que afirma que si el vocabulario puede dividirse en una colección de subconjuntos disjuntos, tal que existe una función $c$ que a cada palabra le asigna con uno de esos subconjuntos $c\left(w_j\right)$ entonces resulta más eficiente calcular (\ref{eq:optijerar1}) por medio de la siguiente igualdad:
+\begin{equation}
+	\tiny
+	 P\left[W_{L+1} = w_j | C = c(w_j), W_{L}=w_{i_{L}},\ldots,W_{L-N+1}=w_{i_{L-N+1}}\right]P\left[C=c(w_j)|W_{L}=w_{i_{L}},\ldots,W_{L-N+1}=w_{i_{L-N+1}}\right]
+\end{equation}
+De esta forma, un problema donde la etiqueta tiene $p$ niveles se transforma en $p$ problemas de etiquetas binarias, el cuál es más sencillo de resolver.
+
+\paragraph{Algoritmo de propagación hacia atrás.} El objetivo del algoritmo de propagación hacia atrás (BP por sus siglas en inglés) consiste en minimizar la función de pérdida de una red neuronal por medio del gradiente de la función de error \citep{rojas1996backpropagation}. En otras, palabras la idea cuantificar las variaciones del error causas por las variaciones en las entradas.  Sin embargo, cuando la arquitectura de una red neuronal posee, al menos, una capa de oculta, no se puede cuantificar directamente. 
+
+Por ejemplo, en el caso de la función de pérdida planteada por (\ref{eq:losscbow2}) en una primera etapa, por medio del método del gradiente se tiene que:
+\begin{equation}
+	W_{L+1}^{'\mbox{nuevo}} = W_{L+1}^{'\mbox{viejo}} - \eta \frac{\partial E}{\partial \mathbf{W}'_{L+1}\mathbf{P}} \cdot \frac{\partial \mathbf{W}'_{L+1}\mathbf{P}}{\partial \mathbf{W}'_{L+1}}
+\end{equation}
+
+Sin embargo, la expresión solo permite actualizar segunda matriz de pesos, para actualizar la primera y dado que la proyección tiene una función de activación lineal, basta ver como varian las proyecciones en función de las entradas. Así, nuevamente por el método del gradiente
+
+\begin{equation}
+	W_{L+1}^{\mbox{nuevo}} = W_{L+1}^{\mbox{viejo}} - \frac{1}{N}\eta\frac{\partial E}{\partial \mathbf{W}'_{L+1}\mathbf{P}} \cdot \frac{\partial \mathbf{W}'_{L+1}\mathbf{P}}{\partial \mathbf{P}}
+\end{equation}
+
+
+\subsection{Algoritmo de Viterbi}
+
+\subsection{Algoritmos meta-heurísticos: Evolución diferencial}
+
+\section{Notas adicionales sobre el Procesamiento de Lenguaje Natural}
+\label{sec:sec25}
+
+\subsection{Sobre la similitud semántica}
+Los modelos CBOW, Skip-Gram y GloVe como se mencionó en la sección~\ref{sec:sec21} tienen el beneficio de recuperar la estructura semántica de las palabras. Mediante su aplicación cada palabra es representada como un punto en el espacio y entonces dos palabras están relacionadas si la distancia entre sus representaciones es pequeña. 
+
+\cite{bellegarda2016state} mencionan que, lo más común para determinar la similitud semántica entre dos proyecciones $\mathbf{e}_{w_j}$ y $\mathbf{e}_{w_k}$ es mediante cualquiera de las siguientes dos funciones de distancia:
+\begin{align*}
+	d_1\left(\mathbf{e}_{w_j},\mathbf{e}_{w_k}\right) = \sqrt{\sum_{h=1}^p \left(e_{w_j}^h -e_{w_k}^h\right)^2} & \quad \mbox{Distancia Euclideana}\\
+	d_2\left(\mathbf{e}_{w_j},\mathbf{e}_{w_k}\right) = \frac{\mathbf{e}_{w_j}\cdot \mathbf{e}_{w_k}}{\left\lVert\mathbf{e}_{w_j}\right\rVert\left\lVert\mathbf{e}_{w_k}\right\rVert} & \quad \mbox{Ángulo entre vectores}
+\end{align*}
+donde $e_{w_j}^h$ es la h-ésima entrada de la proyección.
+
+En muchas áreas, el concepto de distancia está relacionado con el concepto de similitud. En ese sentido, la propuesta de este trabajo como se mencionó en el \textbf{sección de hipótesis} es observar el comportamiento del embebido bajo otras funciones de distancia, en particular, bajo la distancia de Hausdoff. Entonces, ¿cuál es la distancia de Haussdoff? \cite{munkres2000topolgy} define la distancia de Hausdoff entre dos conjuntos no vacíos $A$ y $B$ de un espacio métrico como:
+\begin{equation}
+	\label{eq:hausdoff_original}
+	d_H\left(A,B\right) = \max \left\lbrace \sup_{a\in A} d(a,B),\sup_{b\in B}d(A,b)\right\rbrace
+\end{equation}
+donde $d(a,B) = \inf_{b\in B}d(a,b)$. Así, considere que cada una de las  proyecciones $\mathbf{e}_{w_j}$ y $\mathbf{e}_{w_k}$ es un conjunto de $p$ características $e_{w}^h$. Entonces, (\ref{eq:hausdoff_original}) aplicado al contexto de se puede ver expresare como:
+\begin{equation}
+	\label{eq:hausdoff_words}
+	d_H\left(\mathbf{e}_{w_j},\mathbf{e}_{w_k}\right) = \max \left\lbrace \sup_{1\leq h\leq p} d(e_{w_j}^h,\mathbf{e}_{w_k}),\sup_{1 \leq h' \leq p}d(\mathbf{e}_{w_j},e_{w_k}^{h'})\right\rbrace
+\end{equation}
+donde $d(e_{w_j}^h,\mathbf{e}_{w_k}) = \inf_{i \leq h \leq p}\lvert e_{w_j}^h-e_{w_k}^h\rvert$
+
+\subsection{Silabeo}
+
+
+\subsection{Sobre aplicaciones terminales}
+
+
+\section{Teoría lingüística adicional}
+
+

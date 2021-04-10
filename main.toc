@@ -1,0 +1,58 @@
+\contentsline {chapter}{Resumen}{\es@scroman {i}}{chapter*.1}%
+\contentsline {chapter}{Abstract}{\es@scroman {ii}}{chapter*.2}%
+\contentsline {chapter}{Dedicatoria}{\es@scroman {iii}}{chapter*.2}%
+\contentsline {chapter}{Agradecimientos}{\es@scroman {iv}}{chapter*.3}%
+\contentsline {chapter}{Prefacio}{\es@scroman {v}}{chapter*.4}%
+\babel@toc {spanish}{}
+\contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Marco teórico}{2}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Modelos del lenguaje}{2}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Gramática Generativa de Chomsky}{2}{subsection.2.1.1}%
+\contentsline {subsubsection}{¿Por qué no debe usarse un modelo estadístico?}{2}{subsubsection*.8}%
+\contentsline {subsubsection}{Gramáticas de Contexto Libre}{3}{subsubsection*.9}%
+\contentsline {subsubsection}{Transformaciones}{4}{subsubsection*.10}%
+\contentsline {subsubsection}{Morfofonémica}{5}{subsubsection*.11}%
+\contentsline {subsection}{\numberline {2.1.2}Estructura distributiva de Harris}{5}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}Modelos computacionales con base en la hipótesis distributiva}{6}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}N-gramas}{6}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Modelos CBOW y Skip-Gram}{8}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Modelo GloVe}{10}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Pre-procesamiento}{12}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Normalización}{12}{subsection.2.3.1}%
+\contentsline {subsubsection}{Problemas por énfasis y expresiones regulares}{12}{subsubsection*.17}%
+\contentsline {paragraph}{Nivel de carácter.}{13}{paragraph*.18}%
+\contentsline {paragraph}{Nivel de expresión regular.}{14}{paragraph*.20}%
+\contentsline {paragraph}{Generalidades.}{15}{paragraph*.22}%
+\contentsline {subsubsection}{Corrección automática de errores}{15}{subsubsection*.23}%
+\contentsline {paragraph}{Modelo del error.}{16}{paragraph*.24}%
+\contentsline {paragraph}{Modelo de de contexto.}{17}{paragraph*.25}%
+\contentsline {subsection}{\numberline {2.3.2}Segmentación}{18}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Reconocimiento de Entidades Nombradas}{19}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Optimización}{22}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Estimación de los modelos CBOW y Skip-Gram}{22}{subsection.2.4.1}%
+\contentsline {paragraph}{Muestreo negativo.}{22}{paragraph*.27}%
+\contentsline {paragraph}{Optimización jerárquica.}{23}{paragraph*.28}%
+\contentsline {paragraph}{Algoritmo de propagación hacia atrás.}{23}{paragraph*.29}%
+\contentsline {subsection}{\numberline {2.4.2}Algoritmo de Viterbi}{24}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Algoritmos meta-heurísticos: Evolución diferencial}{24}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Notas adicionales sobre el Procesamiento de Lenguaje Natural}{24}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Sobre la similitud semántica}{24}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Silabeo}{24}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Sobre aplicaciones terminales}{24}{subsection.2.5.3}%
+\contentsline {section}{\numberline {2.6}Teoría lingüística adicional}{24}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Metodología}{25}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Obtención de locuciones}{25}{section.3.1}%
+\contentsline {paragraph}{Determinación de las locuciones a buscar.}{25}{paragraph*.30}%
+\contentsline {paragraph}{Búsqueda de las locuciones especificadas.}{26}{paragraph*.33}%
+\contentsline {section}{\numberline {3.2}Entrenamiento de las tareas de pre-procesamiento}{27}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Algoritmo de silabeo}{28}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Pre-procesamiento de la locuciones}{29}{section.3.4}%
+\contentsline {paragraph}{Texto bruto.}{29}{paragraph*.35}%
+\contentsline {paragraph}{Separación.}{29}{paragraph*.37}%
+\contentsline {paragraph}{Segmentación.}{31}{paragraph*.38}%
+\contentsline {chapter}{\numberline {4}Resultados}{32}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Propuestas en pre-procesamiento del español}{32}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Réplicas}{32}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Análisis de métricas}{32}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Conclusiones}{33}{chapter.5}%
+\contentsline {chapter}{\numberline {A}Diccionario de términos lingüisticos}{34}{appendix.Alph1}%

@@ -1,0 +1,133 @@
+\documentclass[a4paper,12pt,oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,mexico]{babel}
+\usepackage[fixlanguage]{babelbib}
+\selectbiblanguage{spanish}
+\usepackage{tabularx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage[format=plain,
+            font=it]{caption}
+ 
+
+%Paquetes de gráficas
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{automata}
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\usepackage{bm}
+
+
+%Paquetes de matemáticas
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tipa}
+
+%Paquetes de referencias
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{url}
+
+%Paquete de algoritmos
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\newenvironment{megaalgorithm}[1][htb]{%
+	\floatname{algorithm}{Algoritmo}% Update algorithm name
+	\begin{algorithm}[#1]%
+	}{\end{algorithm}
+}
+
+
+
+
+
+%Paquetes de datos y scripts
+\usepackage{listings}
+
+%Paquetes para numeracion en la pagina superior
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+
+% Formato UAQ
+\geometry{left=2.54cm,top=2.54cm,right=2.54cm,bottom=2.54cm}
+\setlength{\parindent}{1.5cm}
+\newenvironment{dedication}{%
+	\cleardoublepage%
+	\addcontentsline{toc}{chapter}{Dedicatoria}\strut\vfill}{\vfill}
+
+
+\newtheorem{defi}{Definición}
+\def\layersep{2.5cm}
+
+
+
+%Definición de elementos de TIKZ
+\usetikzlibrary{shapes.multipart}
+\usetikzlibrary{shapes.geometric, arrows}
+\usetikzlibrary{automata,positioning}
+
+
+%Títulos del documento
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{{\MakeUppercase{{\chaptertitlename}}\ \thechapter}}{8pt}{\large}
+\titlespacing*{\chapter}{0pt}{0pt}{40pt}
+
+
+%Configuracion de secciones 
+
+\titleformat{\section}
+  {\large\bfseries}{\thesection}{1em}{}
+  
+\titleformat{\subsection}
+{\bfseries}{\thesubsection}{1em}{}
+
+
+\titleformat{\subsubsection}
+{\bfseries}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{1em}{\normalsize}  
+
+\interfootnotelinepenalty=10000
+
+
+\newcommand{\lnameref}[1]{%
+	\bgroup
+	\let\nmu\MakeLowercase
+	\nameref{#1}\egroup}
+\newcommand{\fnameref}[1]{%
+	\bgroup
+	\def\nmu{\let\nmu\MakeLowercase}%
+	\nameref{#1}\egroup}
+
+\newcommand{\nmu}{}
+
+
+%%%%%%%%%%%%%%%%%INICIO DE DOCUMENTO%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\include{caraturla}
+
+\mainmatter
+
+\include{chapter1}
+\include{chapter2}
+\include{chapter3}
+\include{chapter4}
+\include{chapter5}
+
+\include{appendix}
+
+
+
+
+\bibliographystyle{apalike-es}
+\bibliography{referencias.bib}
+
+
+\end{document}

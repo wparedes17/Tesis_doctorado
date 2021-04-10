@@ -1,0 +1,135 @@
+\usepackage{amsmath}
+\newcommand{\mycite}[1]{\small{(#1)}}
+\renewcommand{\vec}[1]{\bm{#1}}
+%\newcommand{\eq}[1]{\left\langle #1 \right\rangle}
+\newcommand{\eq}[1]{E_q\left[ #1 \right]}
+\newcommand{\mat}[1]{\mathbf{#1}}
+
+\newcommand{\mystufftrans}[1]{#1^{\top}}
+\ifdefined\trans
+\renewcommand{\trans}[1]{\mystufftrans{#1}}
+\else
+\newcommand{\trans}[1]{\mystufftrans{#1}}
+\fi
+% gb4e overwrites trans, so use transpose if you need linguistic examples
+\newcommand{\transpose}[1]{\mystufftrans{#1}}
+
+
+\newcommand{\jemph}[1]{\textcolor{blue}{\textbf{#1}}}
+\newcommand{\Count}[1]{\text{count}(#1)}
+%\newcommand{\Counts}[0]{\vec{c}}
+%\newcommand{\Count}[0]{C}
+\newcommand{\inv}[1]{(#1)^{-1}}
+\newcommand{\Inv}[1]{\left(#1\right)^{-1}}
+\newcommand{\set}[1]{\mathcal{#1}}
+\newcommand{\diag}[1]{\text{diag}\left(#1\right)}
+\newcommand{\annotation}[1]{\textsc{#1}}
+\newcommand{\annot}[1]{\annotation{#1}}
+\newcommand{\pred}[1]{\textsf{#1}}
+\newcommand{\tagword}[2]{\example{#1}/\annot{#2}}
+\newcommand{\phon}[1]{\textsf{#1}}
+\newcommand{\expect}[1]{E[{#1}]}
+\newcommand{\dd}[2]{\frac{\partial #1}{\partial #2}}
+\renewcommand{\symbol}[1]{$\langle$#1$\rangle$}
+\newcommand{\sentstart}[0]{\symbol{s}}
+\newcommand{\sentend}[0]{\symbol{/s}}
+\newcommand{\todo}[1]{{[\textcolor{red}{todo: #1}]}}
+\newcommand{\wc}[1]{{\textcolor{red}{#1 (WC)}}}
+\newcommand{\tuple}[1]{( #1 )}
+\newcommand{\cue}[1]{[\textcolor{blue}{#1}]}
+\newcommand{\question}[1]{\textcolor{red}{#1}}
+\newcommand{\fstransx}[2]{\xrightarrow[\example{#2}]{\example{#1}}}
+\newcommand{\fstrans}[2]{\xrightarrow[{#2}]{#1}}
+\newcommand{\gloss}[1]{`#1'}%{\fontfamily{phv}\selectfont #1}}
+
+\newcommand{\from}[0]{\leftarrow}
+\newcommand{\rework}[0]{\todo{rework}}
+\newcommand{\permission}[0]{\todo{permission}}
+\newcommand{\reals}[0]{\mathbb{R}}
+\newcommand{\normal}[1]{\mathcal{N}\left(#1\right)}
+\newcommand{\cpic}[2][.95\textwidth]{\begin{center}\includegraphics[width=#1]{#2}\end{center}}
+\newcommand{\etal}[0]{\textit{et al.}}
+\newcommand{\bigo}[1]{\mathcal{O}(#1)}
+\newcommand{\Pmult}[0]{P_{\text{multinomial}}}
+\newcommand{\Pcat}[0]{P_{\text{categorical}}}
+\newcommand{\va}[0]{\vec{a}}
+\newcommand{\vd}[0]{\vec{d}}
+\newcommand{\vdt}[0]{\transpose\vd}
+\newcommand{\vu}[0]{\vec{u}}
+\newcommand{\vut}[0]{\transpose{\vu}}
+\newcommand{\vw}[0]{\vec{w}}
+\newcommand{\vwt}[0]{\transpose{\vw}}
+\newcommand{\vf}[0]{\vec{f}}
+\newcommand{\vx}[0]{\vec{x}}
+\newcommand{\vxt}[0]{\transpose{\vx}}
+\newcommand{\vz}[0]{\vec{z}}
+\newcommand{\vy}[0]{\vec{y}}
+\newcommand{\vyt}[0]{\transpose{\vy}}
+\newcommand{\vs}[0]{\vec{s}}
+\newcommand{\vh}[0]{\vec{h}}
+\newcommand{\vv}[0]{\vec{v}}
+\newcommand{\vb}[0]{\vec{b}}
+\newcommand{\vbeta}[0]{\vec{\beta}}
+\newcommand{\vc}[0]{\vec{c}}
+\newcommand{\vth}[0]{\vec{\theta}}
+\newcommand{\vtht}[0]{\vth \cdot}
+\newcommand{\vph}[0]{\vec{\phi}}
+\newcommand{\vmu}[0]{\vec{\mu}}
+\newcommand{\vzero}[0]{\vec{0}}
+\newcommand{\vzerot}[0]{\transpose{\vec{0}}}
+\newcommand{\jm}[0]{J\&M}
+\newcommand{\dkl}[0]{\mathcal{D}_{KL}}
+\newcommand*{\defeq}{\mathrel{\vcenter{\baselineskip0.5ex \lineskiplimit0pt\hbox{\scriptsize.}\hbox{\scriptsize.}}}=}
+
+%% mathtools overwrites this. use eqref intead
+%\renewcommand{\refeq}[1]{\eqref{#1}}
+
+\DeclareMathOperator*{\argmin}{\arg\!\min} 
+\DeclareMathOperator*{\argmax}{\arg\!\max} 
+
+\@ifpackageloaded{beamer}{\newcommand{\code}[1]{\textsf{#1}}}{\newcommand{\code}[1]{\texttt{#1}}}
+
+\newenvironment{exampleenv}
+{\rmfamily}
+{\normalfont}
+
+\newcommand{\myaddress}[0]{
+  Professor Jacob Eisenstein\\
+  School of Interactive Computing\\
+  Georgia Institute of Technology\\
+  85 5th Street NW, Atlanta, Georgia 30332\\
+  Phone: 404 894 3807\\
+  Email: jacobe@gatech.edu
+}
+\newcommand{\gatech}[0]{Georgia Institute of Technology}
+
+%% this breaks tikz compatibility
+%\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{booktabs}
+
+
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{R{45}{0.4em}}}% no optional argument here, please!
+
+\newcommand{\citestr}{\bibliography{cite-strings,cites,cite-definitions}}
+
+\usepackage{scalerel,stackengine}
+\stackMath
+\newcommand\reallywidehat[1]{%
+\savestack{\tmpbox}{\stretchto{%
+  \scaleto{%
+    \scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
+    {\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
+  }{\textheight}% 
+}{0.5ex}}%
+\stackon[1pt]{#1}{\tmpbox}%
+}
+\parskip 1ex
+
+%\newcommand{\oldgets}[0]{\ensuremath \gets}
+%\renewcommand{\gets}[0]{\ensuremath \oldgets \quad}

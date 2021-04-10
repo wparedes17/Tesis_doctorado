@@ -1,0 +1,35 @@
+\usepackage{xcolor}
+\PassOptionsToPackage{monochrome}{xcolor}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{matrix}
+
+\definecolor{light-gray}{HTML}{CCCCCC}
+
+\tikzset{
+  compgraphmat/.style={column sep=4ex,row sep=2ex,matrix of nodes,every node/.style={anchor=center}}
+}
+
+\tikzset{
+  compnode/.style={draw,minimum size=4.2em,line width=1pt,inner sep=-0.4em}
+}
+\tikzset{
+  tagnode/.style={compnode,circle}
+}
+\tikzset{
+  neuralnode/.style={compnode,regular polygon,regular polygon sides=4,color=darkgray, text=black}
+}
+\tikzset{
+  wordnode/.style={compnode,fill=lightgray,circle}
+}
+\tikzset{
+  prob_edge/.style={dashed, thick, blue}
+}
+\tikzset{
+  compute_edge/.style={black, thick}
+}
+\tikzset{
+  optional_edge/.style={densely dotted, thick, gray}
+}
+\tikzstyle{gate} = [draw, midway, fill=light-gray,font=\small]
+\tikzstyle{mediumnode}=[minimum size=3.25em]
+\tikzstyle{smallnode}=[minimum size=2.5em]

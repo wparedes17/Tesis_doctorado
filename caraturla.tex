@@ -1,0 +1,138 @@
+\frontmatter
+\pagestyle{empty}
+\bgroup\sffamily
+\noindent 
+\begin{tabularx}{\textwidth}{@{}c@{}X@{}c}
+\includegraphics[scale=0.20]{img/uaqlogo} 
+%\includegraphics[width=1.2in]{img/uaqlogo} 
+&
+	\centering
+	\begin{tabular}[b]{@{}c@{}}
+	\Large Universidad Aut\'onoma de Quer\'etaro \\[0.15in]
+	\Large Facultad de Ingenier\'ia \\[0.15in]
+	\large Doctorado en Ingenier\'ia \\[0.05in]
+	\end{tabular}
+\end{tabularx}
+\begin{center}
+\par\bigskip
+\MakeUppercase{Clasificaci\'on supervisada de series de tiempo mediante su caracterizaci\'on temporal a trav\'es de m\'etodos actuariales.}
+\par\smallskip
+\textbf{TESIS}
+\par\medskip
+Que como parte de los requisitos para obtener el grado de
+\par\smallskip
+Doctor en Ingenier\'ia
+\par\medskip
+\textbf{Presentan:}
+\par\smallskip
+Wilfrido Jacobo Paredes Garcia
+\par\medskip
+\textbf{Dirigido por:}
+\par\smallskip
+Dr. Roberto Augusto G\'omez Loenzo
+\par\bigskip
+SINODALES
+\end{center}
+\noindent\begin{tabularx}{\textwidth}{cXc}
+Dr. Roberto Augusto G\'omez Loenzo & & \hspace{1.5in} \\ \cline{1-1} \cline{3-3}
+Presidente         & & Firma          \\[0.1in]
+Dr. Juvenal Rodr\'iguez Resendiz  & & \hspace{1.5in} \\ \cline{1-1} \cline{3-3}
+Secretario         & & Firma          \\[0.1in]
+Dr. Eduardo Casta\~no Tostado   & & \hspace{1.5in} \\ \cline{1-1} \cline{3-3}
+Vocal         & & Firma          \\[0.1in]
+Dr. Arturo Gonz\'alez Gut\'ierrez 
+                                 & & \hspace{1.5in} \\ \cline{1-1} \cline{3-3}
+Suplente         & & Firma          \\[0.1in]
+Dra. Adriana Medell\'in & & \hspace{1.5in} \\ \cline{1-1} \cline{3-3}
+Suplente         & & Firma          \\[0.1in]
+\end{tabularx}
+\noindent\begin{tabularx}{\textwidth}{cXc}
+\hspace{2.25in} & & \hspace{2.75in} \\[0.25in] \cline{1-1} \cline{3-3}
+Dr. Manuel Toledano Ayala & & Dra. Ma. Guadalupe Flavia Loarca Pi\~na             \\
+Director de la Facultad   & & Director de Investigaci\'on y Postgrado
+\end{tabularx}
+\begin{center}
+Centro Universitario\par
+Quer\'etaro, Qro.\par
+Diciembre de 2020\par
+{\large M\'exico}
+\end{center}
+\egroup%\sffamily
+\cleardoublepage
+\setcounter{page}{1}
+\chapter{Resumen}
+\doublespacing
+El propósito de esta tesis es determinar si son o no significativos los metadatos usados en la recomendación musical, puesto que esto limita la experiencia musical a géneros y artistas muy similares. 
+
+En este trabajo se presenta una propuesta de clasificación de canciones mediante el análisis matemático y estadístico de sus elementos temporales, es decir características propias de la música, generando así una alternativa a algunos clasificadores actuales que tienden a incluir en la caracterización de las canciones elementos ajenos a la música en sí, tales como año, artista, calificación, popularidad entre otras. Para ello se optó por utilizar el método de clasificación \textit{K Nearest Neighbors}.
+
+
+\bigskip
+
+\textbf{Palabras clave: Recomendación musical, Aprendizaje supervisado, K Nearest Neighbors, Clasificación} 
+
+
+\chapter{Abstract}
+The aim of this thesis is to determine whether or not the usage of metadata in musical recommendation is significant, since this restricts the musical experience to very similar artists and genres.
+
+This thesis presents a proposal for music classification through the mathematical and statistical analysis of the temporal elements of the songs, creating an alternative to some current classifiers that include other elements, such as year, artist, rating, among others. In order to create this classifier, the algorithm K-Nearest Neighbors (KNN) was used.
+
+\bigskip
+
+\textbf{Key words: Music recommendation, supervised learning, K Nearest Neighbors, Classification} 
+
+ \begin{dedication}
+ \vspace*{2cm}
+
+
+ \begin{center}
+     Esta tesis está dedicada a nuestras familias, epsecialmente a nuestros padres, quienes siempre nos han mostrado su apoyo, nos brindan su amor y nos motivan día con día. A nuestros amigos, que nos acompañaron a lo largo de este proceso y han estado en las buenas y en las malas.
+ 	%Dedicado a todos aquellos que hicieron esta dedicatoria posible.\\
+ 	\par\end{center}
+\end{dedication}
+
+\cleardoublepage
+
+\chapter{Agradecimientos}
+
+Quisiera agradecer a mi padres que me apoyaron en estos 4 años de trabajo, al Dr. Roberto Augusto Gómez por su apoyo y comprensión durante este trayecto que fue el doctorado; al Dr. Juvenal Rodríguez  por todo su apoyo al permitirme involuvrarme en otros proyectos que me permitieron tener un panorama más amplío de la investigación; al Dr. Eduardo Castaño por su apoyo y total disposición en estos años de trabajo; al Dr. Arturo González por su excelente tu tutoria y atención en en estos años y a la Dra. Adriana Medellín por su asesoría brindada en la realización de este trabajo.
+
+Una mención especial a mi amigos y profesores, que por mucho o poco que hayamos interactuado me ayudaron a formar parte de la persona que logró presentar este trabajo, y que, sin ellos existió la posibilidad de que no se redactaran estos pequeños párrafos que vendrán a continución.
+
+Finalmente un agradecimiento total a la Universidad Autónoma de Querétaro y al Consejo Nacional de Ciencia y Tecnología (CONACyT) por la oportunidad y apoyo que me brindó bajo la beca 
+
+\cleardoublepage
+
+\chapter{Prefacio}
+\label{ch:prefacio}
+
+Quisiera comentar que esta obra inició con un gran objetivo más allá de lo plasmado en el protocolo de investigación que redacté hace ya cuatro años. He de ser sincero, el gran objetivo, que era una especie de sueño vívido no se cumplió porque en éste, mi primer trabajo autónomo de investigación, el camino no resultó como había sido trazado. Sin embargo, espero que el camino recorrido y los logros alcanzados en este trabajo permitan que futuros interesados tengan un recorrido más llevadero, al menos, en sus inicios. 
+
+Sobre esta obra, primero debo comentar que he decido eliminar el regular apéndice de código fuente. No creo, sinceramente que haga falta. En su lugar, el código fuente empleado, así como las bases de datos y documentos fuentes pueden ser encontrado en mi GitHub particular para su libre uso.
+
+\begin{center}
+	\url{https://github.com/Wilfridovich17/doctorado}
+\end{center}
+
+Inicialmente, este trabajo fue realizado usando una mezcla de R y Python. R para algunas tareas y Python para otras. Parte final de la realización de este trabajo fue trasladar todo el código de R a Python. Resultó molesto, durante la elaboración de este trabajo, alternar entre ambos ambientes e, imagino que si estás leyendo esto, también lo sería para ti. Por ello, todo el código fuente que encontrarás en mi GitHub está escrito en Python 3.8.
+
+Por otro lado, si la fortuna me sonríe y la vida lo permite, espero poder seguir dando mantenimiento al repositorio con el fin de tener un equipo y proyecto de trabajo que de prioridad al español, ya que al 2020 el único método de fácil uso para realizar todas las tareas escritas para el caso del español, es el proyecto de la Universidad de Stanford.
+
+\begin{flushright}
+	Wilfrido J. Paredes
+\end{flushright}
+\textit{\small Santiago de Querétaro, Qro. 12 de marzo de 2021}
+
+ \vspace{4cm}
+
+\singlespacing
+ \tableofcontents
+% \addcontentsline{toc}{chapter}{Índice general} % Fix this later. Fails for long TOCs!
+
+\listoftables
+
+\listoffigures
+
+\cleardoublepage
+
+
