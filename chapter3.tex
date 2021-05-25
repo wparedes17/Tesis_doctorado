@@ -102,7 +102,10 @@ En lo que respecta al segundo sitio, donde se encuentra el algoritmo de silabeo,
 
 La primera expresión permite identificar donde se arroja el resultado; mientras que las expresiones 2-4 se emplean para limpiar la cadena y dejar el resultado en texto plano.
 
-\section{Algoritmo de silabeo}
+\section{Algoritmo de silabeo y segmentación}
+\label{sec:sec33}
+
+\subsubsection{Algoritmo de silabeo}
 
 Como se mencionó en la sección~\ref{sec:sec25} la mayoría de los algoritmos para el silabeo automático en español son algoritmos basados en reglas. El algoritmo propuesto en este trabajo consiste en que las reglas se puedan reproducir bajo un modelo de una red neuronal.
 
@@ -189,18 +192,138 @@ La Fig.~\ref{fig:syllabification} propone que el algoritmo emplee el hecho de qu
 		\EndProcedure
 	\end{algorithmic}
 \end{megaalgorithm}
-donde el procedimiento \textsc{codification} corresponde a una función de codificación que asigna a cada carácter un valor de acuerdo con la Tabla\textbf{FALTA} y el procedimiento \textsc{core\_syllabification} corresponde a la aplicación del modelo de red neuronal descrito en la Fig.~\ref{fig:syllabification}.
+donde el procedimiento \textsc{codification} corresponde a una función de codificación que asigna a cada carácter un valor de acuerdo con la Tabla~\ref{tb:codsound} y el procedimiento \textsc{core\_syllabification} corresponde a la aplicación del modelo de red neuronal descrito en la Fig.~\ref{fig:syllabification}. 
+
+\begin{table}[H]
+	\centering
+	\caption{Tabla reducida de los sonidos del español con base en la obra de \cite{hualde2013sonidos}.}
+	\label{tb:codsound}
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	\textbf{Modo} & \textbf{Marca} & \textbf{Símbolo} & \textbf{Grupo} \\ \hline
+	\multicolumn{2}{|c|}{Sin sonido}                                                   & h /\textipa{2}/  & 0                               \\ \hline
+	Oclusivo                                & Bilabial                                 & p b v                             & 1                               \\ \hline
+	Oclusivo                                & Dental                                   & t d                               & 1                               \\ \hline
+	Oclusivo                                & Velar                                    & k q g                             & 2                               \\ \hline
+	Fricativo                               & Labiodental                              & f                                 & 3                               \\ \hline
+	Fricativo                               & Alveolar                                 & s z                               & 4                               \\ \hline
+	Fricativo                               & Palatal                                  & y ll                              & 4                               \\ \hline
+	Fricativo                               & Velar                                    & j g x                             & 5                               \\ \hline
+	Africado                                & Palatal                                  & ch                                & 6                               \\ \hline
+	Nasal                                   & Bilabial                                 & m                                 & 7                               \\ \hline
+	Nasal                                   & Alveolar                                 & n                                 & 8                               \\ \hline
+	Nasal                                   & Palatal                                  & ñ                                 & 8                               \\ \hline
+	Aproximante Lateral                     & Alveolar                                 & l                                 & 9                               \\ \hline
+	Percusivo                               & Alveolar                                 & r                                 & 10                              \\ \hline
+	Vibrante                                & Alveolar                                 & r rr                              & 10                              \\ \hline
+	\multicolumn{2}{|c|}{Vocal fuerte}                                                 & a e o                             & 11                              \\ \hline
+	\multicolumn{2}{|c|}{Vocal débil}                                                  & i u                               & 12                              \\ \hline
+	\multicolumn{2}{|c|}{Semi-vocal}                                                   & w gü                              & 13                              \\ \hline
+\end{tabular}
+\end{table}
+
+Además, los scripts de procesamiento, entrenamiento, validación e implementación se pueden encontrar en los siguientes archivos del proyecto de GitHub:
+
+\begin{itemize}
+	\item \texttt{syllabification\_code.py} Script que se encarga de la codificación básica con base en la Tabla .
+	\item \texttt{syllabification\_train.py} Script que se encarga del entrenamiento de lo que representa el \textsc{core\_syllabification}. El entrenamiento se realizó usando Keras y Tensorflow.
+	\item \texttt{sil\_test.py} Script que se encarga de decodificar la información proporcionada por el \textsc{core\_syllabification}.
+	\item \texttt{sil\_compare.py} Script que se encarga de la realización de las pruebas de validación, comparando los resultados del método propuesto por \cite{hernandez2013automatic} y el propuesto en este trabajo.
+	\item \texttt{sil\_model.json} Archivo que contiene la arquitectura del modelo de red neuronal para su rápida carga usando Keras.
+	\item \texttt{sil\_weights.h5} Archivo que contiene los pesos del modelo de la red neuronal para su uso futuro.
+	\item \texttt{sil\_xtrain.np} Datos codificados para entrenamiento.
+	\item \texttt{sil\_ytrain.np} Datos codificados para entrenamiento.
+	\item \texttt{syllables\_dataset.json} Dados en bruto para entrenamiento.
+\end{itemize}
+
+\subsection{Algoritmo de segmentación}
+
+\cite{cano2019segmentacion} menciona que el proceso de optimización planteado por (\ref{eq:norvig}) puede ser computacionalmente extensivo cuando se emplean 2-gramas. Sin embargo, también menciona que el método de 2-gramas es mejor que el enfoque más sencillo planteado al usar 1-gramas. En ese sentido, se propone lo siguiente:
+
+\begin{itemize}
+	\item Los cortes en una gran mayoría de los casos aparecen al final de una sílaba\footnote{Usualmente ocurre así. aunque dar por hecho esto puede llevar a errores sistemáticos. Por ejemplo, uno de los \textit{hashtags} de prueba empleados por \cite{cano2019segmentacion} fue ``DíaInternacionaldelamujer'' y el silabeo correcto esta dado por \textit{dí-\textbf{ain}-ter-na-ci-o-nal-de-la-mu-jer}. Note que la separación correcta ocurre entre la sílaba en negritas, lo que implica su imposible separación.}. Del conjunto empleado por \cite{cano2019segmentacion} solo el 3\% de los \textit{hashtags} no cumplen esa característica.
+	
+	\item \cite{gai2014bidirectional} proponen que en la optimización de (\ref{eq:norvig}) puede hacerse al generar una segmentación en dos direcciones. Por ejemplo, para separar ``elchistedelnorte'' la optimización hacia adelante, que es la empleada por Norvig, evalúa a los candidatos \textit{e}, \textit{el}, \textit{elc}, etc. Sin embargo, el proceso puede hacerse hacia atrás donde se evalúan los candidatos \textit{e}, \textit{te}, \textit{rte},etc.
+	
+	\item Al dividir la cadena en dos subcadenas disjuntas aleatorias es probable que haya al menos una palabra en alguno de las dos subcadenas obtenidas.
+\end{itemize}
+
+El algoritmo de segmentación propuesto y empleado en este consiste en la combinación los tres elementos antes mencionados. Los algoritmos base se describen a continuación y pueden encontrarse condensados en el archivo \texttt{segmentation.py}.
+
+\begin{megaalgorithm}[h]
+	\caption{Algoritmo de Segmentación}
+	\label{alg:segmentation}
+	\begin{algorithmic}[1]
+		\Procedure{Segmentation}{$s$}\Comment{s es una cadena}
+		\State $blocks\gets \mbox{\textsc{syllabification}}(s)$
+		\State $k\gets \mbox{\textsc{randomint}}(0,n)$ \Comment{n es el número de sílabas de s}
+		\State $b_1,b_2\gets blocks[0:k],blocks[k:n]$
+		\State $c_{b1A},c_{b1B}\gets \mbox{\textsc{segmentation\_foward}}(b_1),\mbox{\textsc{segmentation\_backward}}(b_1)$
+		\State $c_{b2A},c_{b2B}\gets \mbox{\textsc{segmentation\_foward}}(b_2),\mbox{\textsc{segmentation\_backward}}(b_2)$
+		\State $candidates\gets \mbox{\textsc{mix}}(c_{b1A},c_{b1B},c_{b2A},c_{b2B})$
+		\State $s_split\gets \mbox{\textsc{optimize}}(candidates)$
+		\State \textbf{return} $s_split$
+		\EndProcedure
+	\end{algorithmic}
+\end{megaalgorithm}
+
+\begin{megaalgorithm}[h]
+	\caption{Algoritmo de Segmentación hacia adelante}
+	\begin{algorithmic}[1]
+		\Procedure{Segmentation\_foward}{$b$}\Comment{b es una lista de sílabas}
+		\State $condition\gets TRUE$
+		\State $k\gets 1$
+		\State $P_0\gets \mbox{\textsc{probability}}(b)$
+		\State $split_b \gets []$
+		\While{condition = TRUE \mbox{\textbf{\textsc{and}}} len(b) \textgreater k}
+		\State $A_c, A_r \gets b[0:k],b[k:]$
+		\State $B_c, B_r \gets b[0:(k+1)],b[(k+1):]$
+		\State $P_A \gets \mbox{\textsc{probability}}(A_c) \times \mbox{\textsc{probability}}(A_r)$
+		\State $P_B \gets \mbox{\textsc{probability}}(B_c) \times \mbox{\textsc{probability}}(B_r)$
+		\State $condition \gets P_B < P_A$
+		\If{condition = FALSE \mbox{\textbf{\textsc{and}}} $P_B > P_0$}
+		\State $\mbox{\textsc{add}}(split_b, B_c)$
+		\ElsIf{condition = FALSE \mbox{\textbf{\textsc{and}}} $P_B < P_0$}
+		\State $\mbox{\textsc{add}}(split_b, b)$
+		\EndIf
+		\State $k \gets k+1$
+		\EndWhile
+		\State \textbf{return} $split_b$
+		\EndProcedure
+	\end{algorithmic}
+\end{megaalgorithm}
+
+\begin{megaalgorithm}[h]
+	\caption{Algoritmo de Segmentación hacia atras}
+	\begin{algorithmic}[1]
+		\Procedure{Segmentation\_foward}{$b$}\Comment{b es una lista de sílabas}
+		\State $condition\gets TRUE$
+		\State $k\gets n-1$ \Comment{n es el número de elementos de b}
+		\State $P_0\gets \mbox{\textsc{probability}}(b)$
+		\State $split_b \gets []$
+		\While{condition = TRUE \mbox{\textbf{\textsc{and}}} 0 \textgreater k}
+		\State $A_c, A_r \gets b[k:],b[:k]$
+		\State $B_c, B_r \gets b[(k-1):],b[:(k-1)]$
+		\State $P_A \gets \mbox{\textsc{probability}}(A_c) \times \mbox{\textsc{probability}}(A_r)$
+		\State $P_B \gets \mbox{\textsc{probability}}(B_c) \times \mbox{\textsc{probability}}(B_r)$
+		\State $condition \gets P_B < P_A$
+		\If{condition = FALSE \mbox{\textbf{\textsc{and}}} $P_B > P_0$}
+		\State $\mbox{\textsc{add}}(split_b, B_c)$
+		\ElsIf{condition = FALSE \mbox{\textbf{\textsc{and}}} $P_B < P_0$}
+		\State $\mbox{\textsc{add}}(split_b, b)$
+		\EndIf
+		\State $k \gets k-1$
+		\EndWhile
+		\State \textbf{return} $split_b$
+		\EndProcedure
+	\end{algorithmic}
+\end{megaalgorithm}
+
+Note que los algoritmos requieren un cálculo de probabilidad, probabilidad que calcula con base en las frecuencias relativas de las palabras si la palabra es conocida y usando (\ref{eq:norvigunknown}) si la palabra es desconocida. Además, la probabilidad se requiere que los bloques estén concatenados previamente, lo cual se omite dentro de los algoritmos para facilitar su lectura. Por otro lado, las funciones \textsc{mix} y \textsc{optimize} involucradas en el Alg.~\ref{alg:segmentation} no se describen a detalle porque, en el caso de la primera consiste en generar las combinaciones que se generan de por medio de los algoritmos de segmentación y, la segunda consiste en seleccionar aquella combinación con probabilidad mayor. La razón es también que sea sencilla la lectura.
   
-
-
-
 \section{Pre-procesamiento de la locuciones}
 
-Para ilustrar la aplicación de los métodos discutidos en el capítulo anterior se tomará de ejemplo algunas de las publicaciones obtenidas para una palabra específica. Los métodos empleados están contenidos en los siguientes archivos:
-\begin{itemize}
-	\item \texttt{splitter0.py}
-	\item \texttt{segmentation.py}
-\end{itemize}
+Para ilustrar la aplicación de los métodos discutidos en el capítulo anterior se tomará de ejemplo algunas de las publicaciones obtenidas para una palabra específica. 
 
 \paragraph{Texto bruto.} La Fig.~\ref{fig:tweets_raw} muestra como se ven algunos de publicaciones obtenidas\footnote{Por cada palabra se generaron 10 archivos, y no existe una justificación técnica al respecto de porque se prefirió generar 10 archivos por palabra en lugar de uno. Esto obedeció a que se prefirió tener algunos ejemplos de todas las palabras para comenzar a explorar.}, donde cada publicación se encuentra separada por una cadena compuesta por exactamente 10 símbolos de porcentaje.
 
@@ -211,12 +334,12 @@ Para ilustrar la aplicación de los métodos discutidos en el capítulo anterior
 	\label{fig:tweets_raw}
 \end{figure}
 
-\paragraph{Separación.} La separación consiste en en segmentar el texto completo en una lista de elementos donde cada elemento sea una publicación, luego separar las en palabras tentativas cada publicación. A continuación se muestran los \textit{tweets} de la Fig~\ref{fig:tweets_raw} después de la separación nivel 0 donde se resaltan los términos problematicos de rojo\footnote{Pudiera parecer sorprendente que términos como \textit{psvsa} hayan sido reconocidos, pero en efecto forman parte del CREA.}:
+\paragraph{Separación.} La separación consiste en en segmentar el texto completo en una lista de elementos donde cada elemento sea una publicación, luego separar las en palabras tentativas cada publicación. A continuación se muestran los \textit{tweets} de la Fig~\ref{fig:tweets_raw} después de la separación donde se resaltan los términos problemáticas en rojo\footnote{Pudiera parecer sorprendente que términos como \textit{psvsa} hayan sido reconocidos, pero en efecto forman parte del CREA.}; mientras que en azul se resultan los términos poco frecuentes:
 
 \begin{quote}
 	\textcolor{red}{}Instalan \textcolor{red}{Isotanque} de oxígeno de \textcolor{red}{12} mil litros para atender a pacientes de \textcolor{red}{COVID} \textcolor{red}{19} en el Hospital Centinela Rosario Vera Zurita ubicado en el municipio Gran Sabana del estado Bolívar informó el gobernador \textcolor{red}{@GobJustoNoguera} \textcolor{red}{\#RadicalesContraLaCovid19} \textcolor{red}{} 
 	\vspace{12pt} \\
-	\textcolor{red}{}Si defiendes el mal manejo del gobierno de Vizcarra y Sagasti en el tema del \textcolor{red}{covid} espero que no te des cuenta de que te equivocaste cuando busques atención médica sin resultado Es fácil llenarse la boca de tonteras hasta que no encuentras cama ni oxígeno \textcolor{red}{} 
+	\textcolor{red}{}Si defiendes el mal manejo del gobierno de \textcolor{blue}{Vizcarra} y Sagasti en el tema del \textcolor{red}{covid} espero que no te des cuenta de que te equivocaste cuando busques atención médica sin resultado Es fácil llenarse la boca de \textcolor{blue}{tonteras} hasta que no encuentras cama ni oxígeno \textcolor{red}{} 
 	\vspace{12pt} \\
 	\textcolor{red}{}Clase obrera de PDVSA y Sidor logró el primer envío de \textcolor{red}{10} \textcolor{red}{280} Kg de oxígeno líquido al Área Metropolitana de Caracas para la batalla contra la \textcolor{red}{COVID} \textcolor{red}{19} \textcolor{red}{\#CuidémonosDelVirus} \textcolor{red}{} 
 	\vspace{12pt} \\
@@ -230,15 +353,40 @@ Para ilustrar la aplicación de los métodos discutidos en el capítulo anterior
 	\vspace{12pt} \\
 	\textcolor{red}{}\textcolor{red}{20} \textcolor{red}{870} casos de \textcolor{red}{covid} \textcolor{red}{19} el número de contagios más alto en \textcolor{red}{24} hs desde el inicio de la pandemia Mientras la gente pide camas de terapia o tubos de oxígeno en las redes sociales Escuelas abiertas el transporte público colapsado \textcolor{red}{lxs} trabajadores siguen muriendo Dale q va \textcolor{red}{} 
 	\vspace{12pt} \\
-	\textcolor{red}{}\textcolor{red}{@canarias7} Sanidad los expertos que no existen y la madre que los parió a todos El oxígeno gratuito y es de todos quienes se creen dueños para permitir si respiramos o no en nuestro descanso y más en la playa o el campo \textcolor{red}{} 
+	\textcolor{red}{} \textcolor{red}{@canarias7} Sanidad los expertos que no existen y la madre que los parió a todos El oxígeno gratuito y es de todos quienes se creen dueños para permitir si respiramos o no en nuestro descanso y más en la playa o el campo \textcolor{red}{} 
 	\vspace{12pt} \\
 	\textcolor{red}{}\textcolor{red}{@abc} es Desobediencia civil y no hacer caso de un gobierno corrupto con conflicto de intereses en la venta de mascarillas No al bozal mi vida mi oxígeno Prohibición de mascarilla al aire libre ya \textcolor{red}{} 
-	\vspace{12pt} \\
 \end{quote}
 
-\paragraph{Segmentación.} En este trabajo se implemento el algoritmo basado en uni-gramas plantado por Norvig y que se mencionó en la sección~\ref{sec:sec23}. El algoritmo está implementado en el archivo \texttt{segmentation.py} y uso como base las frecuencias normalizadas proporcionadas por el CREA.
+\paragraph{Segmentación.} La segmentación emplea los algoritmos descritos en la sección~\ref{sec:sec33}. La aplicación lleva a obtener lo siguiente:
 
+\begin{quote}
+	Instalan \textcolor{red}{Isotanque} de oxígeno de \textcolor{red}{12} mil litros para atender a pacientes de \textcolor{red}{COVID19} en el Hospital Centinela Rosario Vera Zurita ubicado en el municipio Gran Sabana del estado Bolívar informó el gobernador \textcolor{red}{@GobJustoNoguera} radicales contra la \textcolor{red}{covid19} 
+	\vspace{12pt} \\
+	Si defiendes el mal manejo del gobierno de \textcolor{blue}{Vizcarra} y Sagasti en el tema del \textcolor{red}{covid} espero que no te des cuenta de que te equivocaste cuando busques atención médica sin resultado Es fácil llenarse la boca de \textcolor{blue}{tonteras} hasta que no encuentras cama ni oxígeno 
+	\vspace{12pt} \\
+	Clase obrera de PDVSA y Sidor logró el primer envío de \textcolor{red}{10280} Kg de oxígeno líquido al Área Metropolitana de Caracas para la batalla contra la \textcolor{red}{COVID19} \textcolor{blue}{cuidémonos} del virus 
+	\vspace{12pt} \\
+	\textcolor{red}{@makiperra} Le falta otra \textcolor{red}{medidade} sentido común Volver a poder respirar oxígeno en los espacios abiertos si se puede mantener distancia de \textcolor{red}{2m} 
+	\vspace{12pt} \\
+	Hoy es mi cumpleaños y no hay muchas cosas que celebrar la verdad toca trabajar y estudiar Como siempre me levanté temprano y bajé a cambiarle el oxígeno a mi abuelita me felicitó y abrazo por mi santo y me preguntó Qué íbamos a comer Ojalá le gane la batalla al \textcolor{red}{covid} 
+	\vspace{12pt} \\
+	A la gente del gobierno les da el \textcolor{red}{Covid19} incluyendo su doble agente \textcolor{red}{Guaido} y no les pasa nada Ni oxígeno necesitan Al pendejo le da el \textcolor{red}{Covid19} o se muere o tienen que pagar por oxígeno cosa extraña 
+	\vspace{12pt} \\
+	ladrones de oxígeno 
+	\vspace{12pt} \\
+	\textcolor{red}{20870} casos de \textcolor{red}{covid19} el número de contagios más alto en \textcolor{red}{24} hs desde el inicio de la pandemia Mientras la gente pide camas de terapia o tubos de oxígeno en las redes sociales Escuelas abiertas el transporte público colapsado \textcolor{red}{lxs} trabajadores siguen muriendo Dale q va 
+	\vspace{12pt} \\
+	\textcolor{red}{@canarias7} Sanidad los expertos que no existen y la madre que los parió a todos El oxígeno gratuito y es de todos quienes se creen dueños para permitir si respiramos o no en nuestro descanso y más en la playa o el campo 
+	\vspace{12pt} \\
+	\textcolor{red}{@abc} es Desobediencia civil y no hacer caso de un gobierno corrupto con conflicto de intereses en la venta de mascarillas No al bozal mi vida mi oxígeno Prohibición de mascarilla al aire libre ya 
+\end{quote}
 
+\paragraph{PoS y NER.} Las tareas de PoS y NER fueron realizadas usando el Stanford CoreNLP \textit{v4.2}. Los modelos desarrollados por la Universidad de Stanford pueden usarse para realizar un pre-procesamiento completo en inglés y ofrece soporte parcial de algunas tareas para Árabe, Chino, Fránces, Alemán y Español \citep{manning2014stanford}.
+
+\paragraph{Lematizado.}
+
+\section{Estimación del modelo}
 
 
 

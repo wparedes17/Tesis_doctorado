@@ -12,45 +12,45 @@ The style file: apalike-es.bst
 Database file #1: referencias.bib
 Warning--can't use both volume and number fields in fox1989stop
 Warning--can't use both volume and number fields in levenshtein1966binary
-You've used 45 entries,
+You've used 53 entries,
             1935 wiz_defined-function locations,
-            745 strings with 10697 characters,
-and the built_in function-call counts, 17150 in all, are:
-= -- 1728
-> -- 552
-< -- 50
-+ -- 185
-- -- 174
-* -- 1288
-:= -- 2917
-add.period$ -- 147
-call.type$ -- 45
-change.case$ -- 298
-chr.to.int$ -- 44
-cite$ -- 47
-duplicate$ -- 747
-empty$ -- 1272
-format.name$ -- 237
-if$ -- 3465
+            787 strings with 12212 characters,
+and the built_in function-call counts, 20217 in all, are:
+= -- 2031
+> -- 672
+< -- 58
++ -- 227
+- -- 214
+* -- 1517
+:= -- 3446
+add.period$ -- 174
+call.type$ -- 53
+change.case$ -- 355
+chr.to.int$ -- 52
+cite$ -- 55
+duplicate$ -- 877
+empty$ -- 1485
+format.name$ -- 287
+if$ -- 4081
 int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 52
-newline$ -- 232
-num.names$ -- 139
-pop$ -- 299
+missing$ -- 61
+newline$ -- 274
+num.names$ -- 163
+pop$ -- 361
 preamble$ -- 1
-purify$ -- 310
+purify$ -- 370
 quote$ -- 0
-skip$ -- 590
+skip$ -- 691
 stack$ -- 0
-substring$ -- 1180
-swap$ -- 147
-text.length$ -- 17
+substring$ -- 1363
+swap$ -- 172
+text.length$ -- 20
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 246
+type$ -- 288
 warning$ -- 2
-while$ -- 148
+while$ -- 171
 width$ -- 0
-write$ -- 589
+write$ -- 694
 (There were 2 warnings)

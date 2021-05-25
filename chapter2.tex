@@ -1,6 +1,37 @@
 \chapter{Marco teórico}
 \label{ch:chap2}
 
+Al hablar de PLN es necesario hablar sobre teoría del lenguaje y como modelar esa teoría de forma que sea práctica llevarla a la parte computacional. De esta forma, este capítulo trata de ser un compendio de la teoría del lenguaje y cómo fue llevada a la practica computacional.
+
+La Fig~\ref{fig:ch2} muestra la estructura del capítulo. En particular, la parte medular de este apartado está concentrado en las primera dos secciones: Modelos del lenguaje y Modelos computacionales con base en la hipótesis distributiva. Adicional a esto, existen cuatro secciones: una de ellas enfocadas a cómo procesar la información para construir las entradas del modelo, Pre-procesamiento; otra enfocada a como se optimiza el proceso de estimación de los modelos empleados, Optimización; una tercera sección que discute los elementos abordados en la propuesta de trabajo, Notas Adicionales sobre el Procesamiento de Lenguaje Natural y; finalmente una sección con el objetivo de funcionar como una especie de glosario sobre algunos conceptos lingüísticos que sería poco práctico desglosar en los pies de página.
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[
+		xscale=1.75,yscale=.5,
+		on grid,edge from parent fork down,
+		every node/.append style={draw,auto},
+		level 2/.style={sibling distance=0.75cm},
+		sub/.style={text width=1cm}
+		]
+		
+		\node (a1) at (0,0) 	 {Modelos del lenguaje};
+		\node (a2) at (0,-3) 	 {Modelos computaciones con base en la hipótesis distributiva};
+		\node (c12) at (-3,-6) 	 {Pre-procesamiento};
+		\node (c13) at (-1,-6) 	 {Optimización};
+		\node (c11) at (2,-6) 	 {Notas adicionales sobre el PLN};
+		\node (d1) at (-3,-9) 	 {Teoría lingüística adicional};
+		
+		\draw (a1) -- (a2);
+		\draw (a2) -- (c12);
+		\draw (a2) -- (c13);
+		\draw (a2) -- (c11);
+		\draw (c12) -- (d1);
+	\end{tikzpicture}
+	\caption{Organización del capítulo.}
+	\label{fig:ch2}
+\end{figure}
+
 
 \section{Modelos del lenguaje}
 \label{sec:sec21}
@@ -330,6 +361,10 @@ donde $f$ es una función de penalización dada por:
 
 \cite{shi2014linking} mencionan que, en la practica, es altamente probable que se tengan varias entradas $x_{ij}=0$ por lo que resulta conveniente sustituir $x_{ij}$ por $x_{ij} +1$. Además de que, las constantes de sesgo no se emplean en la optimización dejando su obtención a un paso posterior empleando algún algoritmo de descomposición de matrices.
 
+\subsection{Sub-palabras}
+
+
+
 \section{Pre-procesamiento}
 \label{sec:sec23}
 
@@ -534,7 +569,7 @@ En Twitter parte de la información está contenida en lo que se denomina \texti
 		\textit{-@causa\_nuestra}\footnote{El tweet puede ser consultado en \url{https://twitter.com/causa_nuestra/status/1377178856193359874}}
 	\end{flushright}
 \end{quotation}
-contiene cuatro \textit{hashtags} de los cuáles dos tiene información que debe ser segmentada: \textit{Cambia el juego} y \textit{AMLO lujo de presidente}. En ese sentido, el algoritmo más usado de segmentación es el algoritmo basado en 2-gramas propuesto por \cite{norvig209natural}. En su trabajo Norvig propone dada una cadena $s_0$ se puede segmentar como $s_0 = w_1s_1$, donde a su vez se puede segmentar $s_1 = w_2s_2$ y, así sucesivamente, donde $s_{i+1}$ es la cadena sobrante al quitar $w_{i+1}$ de la cadena $s_{i}$ y
+contiene cuatro \textit{hashtags} de los cuáles dos tiene información que debe ser segmentada: \textit{Cambia el juego} y \textit{AMLO lujo de presidente}. En ese sentido, el algoritmo más usado de segmentación es el algoritmo basado en uni-gramas y 2-gramas propuesto por \cite{norvig209natural}. En su trabajo Norvig propone dada una cadena $s_0$ se puede segmentar como $s_0 = w_1s_1$, donde a su vez se puede segmentar $s_1 = w_2s_2$ y, así sucesivamente, donde $s_{i+1}$ es la cadena sobrante al quitar $w_{i+1}$ de la cadena $s_{i}$ y
 \begin{equation}
 	\label{eq:norvig}
 	w_{i+1} = \arg\max_{w^{*}} P\left[w_{i+1} \vert w_{i}\right]P\left[w_{i}\right]P[s_{i+1}]
@@ -753,10 +788,9 @@ Sin embargo, la expresión solo permite actualizar segunda matriz de pesos, para
 
 \subsection{Algoritmos meta-heurísticos: Evolución diferencial}
 
-\section{Notas adicionales sobre el Procesamiento de Lenguaje Natural}
+\section{Sobre la similitud semántica}
 \label{sec:sec25}
 
-\subsection{Sobre la similitud semántica}
 Los modelos CBOW, Skip-Gram y GloVe como se mencionó en la sección~\ref{sec:sec21} tienen el beneficio de recuperar la estructura semántica de las palabras. Mediante su aplicación cada palabra es representada como un punto en el espacio y entonces dos palabras están relacionadas si la distancia entre sus representaciones es pequeña. 
 
 \cite{bellegarda2016state} mencionan que, lo más común para determinar la similitud semántica entre dos proyecciones $\mathbf{e}_{w_j}$ y $\mathbf{e}_{w_k}$ es mediante cualquiera de las siguientes dos funciones de distancia:
